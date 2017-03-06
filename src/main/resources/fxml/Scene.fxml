@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="750.0" text="Práctica 1 de PEV 2017                                                                                                    Daniel Rossetto y Laura Hernando" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <BorderPane prefHeight="515.0" prefWidth="647.0">
+         <left>
+            <GridPane prefHeight="376.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.50870513916016" minWidth="10.0" prefWidth="71.22823333740234" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.52611541748047" minWidth="10.0" prefWidth="128.77176666259766" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="85.30523681640625" minHeight="10.0" prefHeight="85.30523681640625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="103.69476318359375" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Función">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboFuncion" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Label text="Población" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <TitledPane animated="false" collapsible="false" prefHeight="65.0" prefWidth="215.0" text="Cromosomas" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="34.0" prefWidth="100.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" text="Precisión">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtPrecision" layoutX="76.0" layoutY="9.0" maxHeight="23.0" maxWidth="119.0" prefHeight="23.0" prefWidth="135.0">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TitledPane>
+                  <TextField fx:id="txtPoblacion" maxHeight="23.0" maxWidth="135.0" prefHeight="23.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtIteraciones" maxHeight="23.0" maxWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtCruces" maxHeight="23.0" maxWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtMutacion" maxHeight="23.0" maxWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtSemilla" accessibleRole="PASSWORD_FIELD" maxHeight="23.0" maxWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label text="Iteraciones" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\% Cruces" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="\% Mutación" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Semilla" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Cruce" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Selección" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cboCruce" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="cboSeleccion" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TitledPane fx:id="panelSeleccion" animated="false" collapsible="false" prefHeight="78.0" prefWidth="212.0" text="untitled" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="52.0" prefWidth="209.0">
+                           <children>
+                              <Label layoutX="16.0" layoutY="6.0" text="Label">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="3.0" />
+                                 </padding>
+                              </Label>
+                              <Label layoutX="16.0" layoutY="19.0" text="Label">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="12.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtSeleccion1" layoutX="76.0" layoutY="3.0" maxHeight="23.0" maxWidth="119.0" prefHeight="25.0" prefWidth="133.0">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="1.0" />
+                                 </padding>
+                              </TextField>
+                              <TextField fx:id="txtSeleccion2" layoutX="76.0" layoutY="28.0" maxHeight="23.0" maxWidth="119.0" prefHeight="23.0" prefWidth="133.0">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="1.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TitledPane>
+                  <VBox GridPane.columnSpan="2" GridPane.rowIndex="10">
+                     <children>
+                        <Button fx:id="btnCopiar" mnemonicParsing="false" onAction="#onCopiarButton" prefHeight="27.0" prefWidth="215.0" text="Lanza una copia">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnRelanzar" maxWidth="215.0" mnemonicParsing="false" onAction="#onRelanzarButton" text="Relanza este AG" />
+                        <Button fx:id="btnEliminar" maxWidth="215.0" mnemonicParsing="false" onAction="#onEliminarButton" text="Elimina este AG" />
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </left>
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="Crear nuevo">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <Button fx:id="btnCrearAG" layoutX="165.0" layoutY="221.0" mnemonicParsing="false" onAction="#OnCrearAGButton" text="Introduce los datos del AG" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+      </BorderPane>
+   </content>
+</TitledPane>
