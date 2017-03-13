@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package g12p01.chromosome.gene;
+package es.ucm.pev.g12p1.chromosome.gene;
 
 import java.util.List;
 import java.util.Random;

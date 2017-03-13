@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package g12p01.geneticOperator;
+package es.ucm.pev.g12p1.geneticOperator;
 
-import g12p01.chromosome.Chromosome;
+import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;

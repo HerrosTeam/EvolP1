@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package g12p01;
+package es.ucm.pev.g12p1;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author usuario_local
  */
-public class G12P01 extends Application {
+public class G12P1 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
