@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ucm.pev.g12p1.geneticOperator;
+package es.ucm.pev.g12p1.selection;
 
 import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.LinkedList;

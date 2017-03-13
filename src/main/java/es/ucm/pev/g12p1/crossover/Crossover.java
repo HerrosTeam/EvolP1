@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ucm.pev.g12p1.cruce;
+package es.ucm.pev.g12p1.crossover;
 
 import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author usuario_local
  */
-public class Cruce {
+public class Crossover {
     
     public List<Chromosome> cruceMonopunto(Chromosome parent1, Chromosome parent2){
         List<Chromosome> children = new LinkedList();
