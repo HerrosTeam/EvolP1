@@ -6,6 +6,7 @@
 package g12p01.chromosome.gene;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -26,4 +27,10 @@ public abstract class Gene<T> {
     public T getAllele(int pos){
         return allele.get(pos);
     }
+    
+    public void setAllele(int pos, T allele){
+        this.allele.set(pos, allele);
+    }
+
+    public abstract void initializeGene(Random randomNumber);
 }

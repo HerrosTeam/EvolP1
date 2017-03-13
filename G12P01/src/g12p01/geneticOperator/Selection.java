@@ -6,7 +6,9 @@
 package g12p01.geneticOperator;
 
 import g12p01.chromosome.Chromosome;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -14,8 +16,22 @@ import java.util.List;
  */
 public class Selection {
     //mirar tfg como meter en un hashmap funciones con parametros de entrada
-    public void rouletteSelection(List<Chromosome> population, 
-            List<Chromosome> newPopulation, int populationSize){
-        
+    
+    public List<Chromosome> rouletteSelection(List<Chromosome> population, int populationSize){
+        List<Chromosome> newPopulation = new LinkedList();
+        double probability; //probability of selection
+        int survivorPos; //position of survivor
+        Random randomNumber =  new Random();
+        for(Chromosome c: population){
+            probability = randomNumber.nextDouble();
+            survivorPos = 0;
+            while(probability > population.get(survivorPos).getScoreAccumulated() && 
+                    (survivorPos < populationSize)){
+                survivorPos++;
+            }
+            newPopulation.add(population.get(survivorPos));
+        }
+            
+        return newPopulation;
     }
 }

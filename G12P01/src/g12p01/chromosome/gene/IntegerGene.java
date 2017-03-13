@@ -6,6 +6,7 @@
 package g12p01.chromosome.gene;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -15,6 +16,11 @@ public class IntegerGene extends Gene<Integer>{
     
     public IntegerGene(List<Integer> allele) {
         super(allele);
+    }
+
+    @Override
+    public void initializeGene(Random randomNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

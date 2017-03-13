@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package g12p01.ag;
+package g12p01;
 
 /**
  *
@@ -25,5 +25,25 @@ public class Main {
             Evaluar población(P(t));
         }
         */
+        
+        
+        /*
+        AGenetico AG = new AGenetico();
+        AG.inicializa(); 
+        //crea población inicial de cromosomas
+        AG.evaluarPoblacion();
+        //evalúa los individuo
+        s y coge el mejor 
+        while (!GA.terminado()) {
+        AG.numgeneracion++;
+        AG.seleccion();
+        AG.reproduccion();
+        AG.mutacion();
+        AG.evaluarPoblacion();
+        . . .
+        }
+        devolver pob[pos_mejor];
+        */
+        
     }
 }

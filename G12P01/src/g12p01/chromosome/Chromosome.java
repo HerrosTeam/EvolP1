@@ -7,18 +7,34 @@ package g12p01.chromosome;
 
 import g12p01.chromosome.gene.Gene;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
  * @author usuario_local
  */
-public class Chromosome {
+public abstract class Chromosome {
     private List<Gene> genes;
-    private int max;
-    private int min;
-
+    private double fenotype;//fenotipo
+    private double fitness; //funcion de evaluacion fitness
+    private double score; //puntuacion relativa (aptitud/suma)
+    private double scoreAccumulated; //puntuacion acumulada para seleccion
+    private String tipo; //tipo de cromosoma
+    
+    //extremos del intervalo para los valores del dominio
+    private int xmin, xmax;
+    private int chromosomeLength; //longitud del cromosoma
+    private double tolerance;
+    
+    public Chromosome() {
+    }
+    
     public Chromosome(List<Gene> genes) {
         this.genes = genes;
+    }
+    
+    public List<Gene> getGenes(){
+        return this.genes;
     }
     
     public Gene getGene(int pos){
@@ -33,12 +49,21 @@ public class Chromosome {
         return length;
     }
     
-   public double evaluate(){
-       return 0;
-   }
+   public abstract void evaluate();
    
-   public double fenotype(){
-       return 0;
-   }
+   public abstract void  fenotype();// fenotype =...
+
+    public void inicializeChromosome(Random randomNumber){
+        for(int i=0; i<this.genes.size(); i++){
+            this.genes.get(i).initializeGene(randomNumber);
+        }
+    }
+
+    public double getScoreAccumulated() {
+        return this.scoreAccumulated;
+    }
+
+    public abstract Chromosome cloneChromosome();
+
     
 }

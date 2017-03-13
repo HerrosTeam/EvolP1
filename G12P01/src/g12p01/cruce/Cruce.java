@@ -6,7 +6,6 @@
 package g12p01.cruce;
 
 import g12p01.chromosome.Chromosome;
-import g12p01.chromosome.gene.Gene;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,28 +20,58 @@ public class Cruce {
         List<Chromosome> children = new LinkedList();
         int randomNum = ThreadLocalRandom.current().nextInt(1, parent1.getLength());
 
-        List<T> child1 = new LinkedList();
-        List<T> child2 = new LinkedList();
+        Chromosome child1 = parent1.cloneChromosome();
+        Chromosome child2 = parent2.cloneChromosome();
+        
+        //remorremos los alelos de los genes bit a bit
         int currentGene=0, sumGeneLengths=0;
         for(int i=0; i<parent1.getLength(); i++){
-            if(parent1.getGene(currentGene).getLength() + sumGeneLengths < i){
+            if(i >= parent1.getGene(currentGene).getLength() + sumGeneLengths){
                 sumGeneLengths+= parent1.getGene(currentGene).getLength();
                 currentGene++;
             }
-            if(i<randomNum){
-                child1.add(parent1.getGene(currentGene).getAllele(i-sumGeneLengths));
-                child2.add(parent2.getGene(currentGene).getAllele(i-sumGeneLengths));
-            }
-            else{
-                child1.add(parent2.getGene(i));
-                child2.add(parent1.getGene(i));
+            if(i >= randomNum){
+                child1.getGene(currentGene).setAllele(i-sumGeneLengths, 
+                        parent2.getGene(currentGene).getAllele(i-sumGeneLengths));
+                child2.getGene(currentGene).setAllele(i-sumGeneLengths, 
+                        parent1.getGene(currentGene).getAllele(i-sumGeneLengths));
             }
         }
-        children.add(new Chromosome(child1));
-        children.add(new Chromosome(child2));
+        children.add(child1);
+        children.add(child2);
         
         return children;
     }
+    
+    
+        public List<Chromosome> cruceMultipunto(Chromosome parent1, Chromosome parent2){
+        List<Chromosome> children = new LinkedList();
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+
+        Chromosome child1 = parent1.cloneChromosome();
+        Chromosome child2 = parent2.cloneChromosome();
+        
+        //remorremos los alelos de los genes bit a bit
+        int currentGene=0, sumGeneLengths=0;
+        for(int i=0; i<parent1.getLength(); i++){
+            if(i >= parent1.getGene(currentGene).getLength() + sumGeneLengths){
+                sumGeneLengths+= parent1.getGene(currentGene).getLength();
+                currentGene++;
+            }
+            randomNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+            if(randomNum==1){
+                child1.getGene(currentGene).setAllele(i-sumGeneLengths, 
+                        parent2.getGene(currentGene).getAllele(i-sumGeneLengths));
+                child2.getGene(currentGene).setAllele(i-sumGeneLengths, 
+                        parent1.getGene(currentGene).getAllele(i-sumGeneLengths));
+            }
+        }
+        children.add(child1);
+        children.add(child2);
+        
+        return children;
+    }
+    
     
     
     public List<Chromosome> mutacionBasica(List<Chromosome> population, double probCruce){
