@@ -20,8 +20,8 @@ public class Cruce {
         List<Chromosome> children = new LinkedList();
         int randomNum = ThreadLocalRandom.current().nextInt(1, parent1.getLength());
 
-        Chromosome child1 = parent1.cloneChromosome();
-        Chromosome child2 = parent2.cloneChromosome();
+        Chromosome child1 = parent1;
+        Chromosome child2 = parent2;
         
         //remorremos los alelos de los genes bit a bit
         int currentGene=0, sumGeneLengths=0;
@@ -48,8 +48,8 @@ public class Cruce {
         List<Chromosome> children = new LinkedList();
         int randomNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
 
-        Chromosome child1 = parent1.cloneChromosome();
-        Chromosome child2 = parent2.cloneChromosome();
+        Chromosome child1 = parent1;
+        Chromosome child2 = parent2;
         
         //remorremos los alelos de los genes bit a bit
         int currentGene=0, sumGeneLengths=0;

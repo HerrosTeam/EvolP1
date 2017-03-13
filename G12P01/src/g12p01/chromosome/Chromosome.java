@@ -15,18 +15,21 @@ import java.util.Random;
  */
 public abstract class Chromosome {
     private List<Gene> genes;
-    private double fenotype;//fenotipo
-    private double fitness; //funcion de evaluacion fitness
-    private double score; //puntuacion relativa (aptitud/suma)
-    private double scoreAccumulated; //puntuacion acumulada para seleccion
+    protected List<Double> fenotype;//fenotipo
+    protected double fitness; //funcion de evaluacion fitness
+    protected double score; //puntuacion relativa (aptitud/suma)
+    protected double scoreAccumulated; //puntuacion acumulada para seleccion
     private String tipo; //tipo de cromosoma
     
     //extremos del intervalo para los valores del dominio
-    private int xmin, xmax;
-    private int chromosomeLength; //longitud del cromosoma
-    private double tolerance;
+    protected double xmin, xmax;
+    protected int chromosomeLength; //longitud del cromosoma
+    protected double tolerance;
     
-    public Chromosome() {
+    public Chromosome(double min, double max, double tolerance) {
+        this.xmin = min;
+        this.xmax = max;
+        this.tolerance = tolerance;
     }
     
     public Chromosome(List<Gene> genes) {
@@ -62,8 +65,5 @@ public abstract class Chromosome {
     public double getScoreAccumulated() {
         return this.scoreAccumulated;
     }
-
-    public abstract Chromosome cloneChromosome();
-
-    
+  
 }
