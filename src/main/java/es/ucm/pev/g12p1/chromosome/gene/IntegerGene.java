@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class IntegerGene extends Gene<Integer>{
     
-    public IntegerGene(List<Integer> allele) {
-        super(allele);
+    public IntegerGene(List<Integer> allele, int geneLength) {
+        super(allele, geneLength);
     }
 
     @Override

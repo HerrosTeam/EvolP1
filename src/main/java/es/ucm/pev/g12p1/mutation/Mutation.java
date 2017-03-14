@@ -10,5 +10,15 @@ package es.ucm.pev.g12p1.mutation;
  * @author PoVALE Team
  */
 public class Mutation {
+    private double probabilityOfMutation;
+    private int populationSize;
     
+    public Mutation(double probabilityOfMutation, int populationSize){
+        this.probabilityOfMutation = probabilityOfMutation;
+        this.populationSize = populationSize;
+    }
+    
+    public void mutate(){
+    
+    }
 }

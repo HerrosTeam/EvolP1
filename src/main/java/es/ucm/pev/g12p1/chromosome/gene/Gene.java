@@ -14,14 +14,15 @@ import java.util.Random;
  */
 public abstract class Gene<T> {
     
-    private List<T> allele;
-
-    public Gene(List<T> allele) {
-        this.allele = allele;
+    protected List<T> allele;
+    protected int geneLength;
+    public Gene(int geneLength) {
+        
+        this.geneLength = geneLength;
     }
 
     public int getLength(){
-        return allele.size();
+        return geneLength;
     }
     
     public T getAllele(int pos){

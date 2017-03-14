@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class RealGene extends Gene<Double>{
     
-    public RealGene(List<Double> allele) {
-        super(allele);
+    public RealGene(List<Double> allele, int geneLength) {
+        super(allele, geneLength);
     }
 
     @Override
