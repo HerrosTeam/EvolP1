@@ -3,23 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ucm.pev.g12p1.chromosome.gene;
+package es.ucm.pev.g12p1.crossover;
 
+import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
- * @author usuario_local
+ * @author PoVALE Team
  */
-public class IntegerGene extends Gene{
-    
-    public IntegerGene(int geneLength) {
-        super(geneLength);
-    }
+public class Arithmetic extends Crossover{
 
     @Override
-    public void initializeGene(Random randomNumber) {
+    public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

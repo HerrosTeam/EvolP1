@@ -14,24 +14,9 @@ import java.util.Random;
  *
  * @author usuario_local
  */
-public class Selection {
-    //mirar tfg como meter en un hashmap funciones con parametros de entrada
+public abstract class Selection {
     
-    public List<Chromosome> rouletteSelection(List<Chromosome> population, int populationSize){
-        List<Chromosome> newPopulation = new LinkedList();
-        double probability; //probability of selection
-        int survivorPos; //position of survivor
-        Random randomNumber =  new Random();
-        for(Chromosome c: population){
-            probability = randomNumber.nextDouble();
-            survivorPos = 0;
-            while(probability > population.get(survivorPos).getScoreAccumulated() && 
-                    (survivorPos < populationSize)){
-                survivorPos++;
-            }
-            newPopulation.add(population.get(survivorPos));
-        }
-            
-        return newPopulation;
-    }
+    public abstract List<Chromosome> select(List<Chromosome> population);
+    
+   
 }

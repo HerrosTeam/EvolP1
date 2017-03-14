@@ -12,10 +12,10 @@ import java.util.Random;
  *
  * @author usuario_local
  */
-public class RealGene extends Gene<Double>{
+public class RealGene extends Gene{
     
-    public RealGene(List<Double> allele, int geneLength) {
-        super(allele, geneLength);
+    public RealGene(int geneLength) {
+        super(geneLength);
     }
 
     @Override

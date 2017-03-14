@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author usuario_local
  */
-public class BinaryGene extends Gene<Boolean>{
+public class BinaryGene extends Gene{
     
     public BinaryGene(int geneLength) {
         super(geneLength);

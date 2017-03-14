@@ -16,7 +16,8 @@ import java.util.Random;
  */
 public abstract class Chromosome {
     protected List<Gene> genes;
-    protected List<Double> fenotype;//fenotipo
+    
+    protected List<Double> fenotype;
     protected double fitness; //funcion de evaluacion fitness
     protected double score; //puntuacion relativa (aptitud/suma)
     protected double scoreAccumulated; //puntuacion acumulada para seleccion
@@ -34,7 +35,7 @@ public abstract class Chromosome {
     }
    
     
-    public List<Gene> getGenes(){
+    public List<? extends Gene> getGenes(){
         return this.genes;
     }
     

@@ -12,9 +12,9 @@ import java.util.Random;
  *
  * @author usuario_local
  */
-public abstract class Gene<T> {
+public abstract class Gene {
     
-    protected List<T> allele;
+    protected List<Object> allele;
     protected int geneLength;
     public Gene(int geneLength) {
         
@@ -25,11 +25,11 @@ public abstract class Gene<T> {
         return geneLength;
     }
     
-    public T getAllele(int pos){
+    public Object getAllele(int pos){
         return allele.get(pos);
     }
     
-    public void setAllele(int pos, T allele){
+    public void setAllele(int pos, Object allele){
         this.allele.set(pos, allele);
     }
 

@@ -6,6 +6,7 @@
 package es.ucm.pev.g12p1.chromosome;
 
 import es.ucm.pev.g12p1.chromosome.gene.BinaryGene;
+import es.ucm.pev.g12p1.chromosome.gene.Gene;
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
@@ -21,8 +22,8 @@ public class Function1 extends Chromosome{
         this.tolerance = tolerance;
         this.genes = new LinkedList();
         int geneLength = 1;
+        Gene gene = new BinaryGene(geneLength);
         this.genes.add(new BinaryGene(geneLength));
-        
     } 
     
     public double function(double x){
@@ -36,8 +37,10 @@ public class Function1 extends Chromosome{
     }
 
     @Override
-    public void fenotype() {
-        double result = this.xmin + (this.xmax - this.xmin) * this.genes.get(0);
+    public void fenotype(){        
+        BinaryGene a = (BinaryGene) this.genes.get(0);
+        double aDec = a.bin2Dec(chromosomeLength);
+        double result = this.xmin + (this.xmax - this.xmin) * aDec;
         this.fenotype.add(result);
     }
 
