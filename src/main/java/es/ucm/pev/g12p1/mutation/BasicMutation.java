@@ -14,9 +14,13 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author PoVALE Team
  */
-public class BasicMutation {
+public class BasicMutation extends Mutation{
+
+    public BasicMutation(double probabilityOfMutation, int populationSize) {
+        super(probabilityOfMutation, populationSize);
+    }
     
-    public List<Chromosome> mutacionBasica(List<Chromosome> population, double probCruce){
+    public List<Chromosome> basicMutation(List<Chromosome> population, double probCruce){
         List<Double> probabilities = new LinkedList();
         for(Chromosome c : population){
             probabilities.add(ThreadLocalRandom.current().nextDouble(0, 1+1));

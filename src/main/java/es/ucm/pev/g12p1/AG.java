@@ -12,6 +12,9 @@ import es.ucm.pev.g12p1.chromosome.Function3;
 import es.ucm.pev.g12p1.chromosome.Function4;
 import es.ucm.pev.g12p1.chromosome.Function5;
 import es.ucm.pev.g12p1.crossover.Crossover;
+import es.ucm.pev.g12p1.elite.Elite;
+import es.ucm.pev.g12p1.mutation.BasicMutation;
+import es.ucm.pev.g12p1.mutation.Mutation;
 import es.ucm.pev.g12p1.selection.Selection;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +37,6 @@ public class AG {
     private int maxGenerations;
 
     private Chromosome bestChromosome;
-    private int posBestChrom; // Position of the best chromosome
 
     private double probCrossover;
     private double probMutation;
@@ -43,16 +45,26 @@ public class AG {
     private Crossover crossover;
     private Selection selection;
     private String function;
-
-    private int individualLength;
-    private int numGenes;
-    private double eliteSize;
-    private int offspringSize;
+    
     private Random randomNumber;
+    private Mutation mutation;
+
+    private boolean maximizar;
+
+    private List<Chromosome> eliteChromosomes;
+    private boolean elitism;
+    private int elitismPopulation;
+    // Position of the best chromosome
+    private Elite elite;
+
+    private double average;
+    
+    private double evolutionaryPressure;
 
     public AG(String function, int populationSize, int max_generations,
             double prob_cross, double prob_mut, double tolerance, int seed,
-            int numGenes, Selection selection, Crossover crossover) {
+            int numGenes, Selection selection, Crossover crossover,
+            boolean elitism) {
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
         this.probCrossover = prob_cross;
@@ -61,6 +73,14 @@ public class AG {
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
+        this.mutation = new BasicMutation(prob_mut, population.size());
+        this.elitism = elitism;
+        if (elitism) {
+            this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
+            this.elite = new Elite(this.elitismPopulation);
+        }
+        this.evolutionaryPressure = 1.5;
+
     }
 
     public void executeAlgorithm() {
@@ -68,9 +88,20 @@ public class AG {
         this.evaluate();
 
         while (currentGeneration != maxGenerations) {
+
+            if (elitism) {
+                this.eliteChromosomes = this.elite.getElite(population);
+            }
+
             this.selection();
             this.crossover();
-            //this.mutate();
+            this.mutation.mutate();
+
+            if (elitism) {
+                this.population = this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
+                this.eliteChromosomes.clear();
+            }
+
             this.evaluate();
             currentGeneration++;
         }
@@ -94,8 +125,88 @@ public class AG {
         }
     }
 
-    public double evaluate(/*x*/) {//la recibimos
-        return 0;
+    public void evaluate(/*x*/) {//la recibimos
+        double bestFitness = 0;
+        double sumFitness = 0;
+        int bestPosition = 0;
+        double fmin = population.get(bestPosition).getFitness();
+        double cmax = population.get(bestPosition).getFitness();
+
+        for (int i = 0; i < this.populationSize; i++) {
+            this.population.get(i).fenotype();
+            this.population.get(i).evaluate();
+            double currentFitness = this.population.get(i).getFitness();
+            sumFitness += currentFitness;
+
+            if (maximizar) {
+                if (currentFitness > bestFitness) {
+                    bestPosition = i;
+                    bestFitness = currentFitness;
+                }
+            } else if (!maximizar) {
+                if (currentFitness < bestFitness) {
+                    bestPosition = i;
+                    bestFitness = currentFitness;
+                }
+            }
+
+            if (currentFitness < fmin) {
+                fmin = currentFitness;
+            }
+            if (currentFitness > cmax) {
+                cmax = currentFitness;
+            }
+        }
+
+        if (this.population.get(bestPosition).getFitness() > this.bestChromosome.getFitness()) {
+            this.bestChromosome = this.population.get(bestPosition);
+        }
+
+        this.average = sumFitness / this.populationSize;
+
+        this.adaptation(cmax, fmin);
+    }
+
+    public void adaptation(double cmax, double fmin) {
+        //desplazamiento de la adaptación
+        cmax *= 1.05;
+        if (cmax >= 0) {
+            cmax *= 1.05;
+        } else {
+            cmax *= 0.95;
+        }
+        fmin = Math.abs(fmin);
+
+        double sumAdaptations = 0;
+        
+        for (int i=0; i<this.populationSize; i++) {
+            sumAdaptations += this.population.get(i).getAdaptation(cmax, fmin);
+        }
+
+        double avgAdaptations = sumAdaptations / this.populationSize;
+        double a = ((this.evolutionaryPressure - 1) * avgAdaptations)/(this.bestChromosome.getAdaptation(cmax, fmin) - avgAdaptations);
+        double b = (1 - a) * avgAdaptations;
+        double sumEscalation = 0;
+        for (int i = 0; i < this.populationSize; i++) {
+            double escalation = (a * this.population.get(i).getAdaptation(cmax, fmin)) + b;
+            this.population.get(i).setEscalation(escalation);
+            sumEscalation += escalation;
+        }
+
+        double score = 0;
+        double accumulatedScore = 0;
+
+        for (int i = 0; i < this.populationSize; i++) {//calcular puntuaciones y puntuaciones acumuladas
+            score = this.population.get(i).getEscalation() / sumEscalation;
+            accumulatedScore += score;
+            this.population.get(i).setScore(score);
+            this.population.get(i).setAccumulatedScore(accumulatedScore);
+        }
+
+        //this.puntos[0][this.currentGeneration] = this.currentGeneration;
+        //this.puntos[1][this.currentGeneration] = this.mejor.getAptitud();
+        //this.puntos[2][this.currentGeneration] = this.mejorGeneracion.getAptitud();
+        //this.puntos[3][this.currentGeneration] = this.average;
     }
 
     public void selection() {
@@ -106,28 +217,28 @@ public class AG {
         int[] sel_cross = new int[this.populationSize];
         int num_sel_cross = 0;
         double prob;
-        
-        for (int i=0; i < this.populationSize; i++) {
+
+        for (int i = 0; i < this.populationSize; i++) {
             prob = Math.random();
             if (prob < this.probCrossover) {
                 sel_cross[num_sel_cross] = i;
                 num_sel_cross++;
             }
         }
-        
+
         if ((num_sel_cross % 2) == 1) {
             num_sel_cross--;
         }
 
         int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength() + 1);
-         
-        for (int j=0; j<num_sel_cross; j+=2) {
+
+        for (int j = 0; j < num_sel_cross; j += 2) {
             Chromosome parent1 = population.get(sel_cross[j]);
-            Chromosome parent2 = population.get(sel_cross[j+1]);
+            Chromosome parent2 = population.get(sel_cross[j + 1]);
             List<Chromosome> children = this.crossover.crossover(parent1, parent2, cross_point);
-            
-            population.set(sel_cross[j],children.get(0));
-            population.set(sel_cross[j+1], children.get(1));
+
+            population.set(sel_cross[j], children.get(0));
+            population.set(sel_cross[j + 1], children.get(1));
         }
     }
 
@@ -142,16 +253,22 @@ public class AG {
     private Chromosome createConcreteChromosome() {
         switch (this.function) {
             case "funcion1":
+                this.maximizar = false;
                 return new Function1(this.tolerance);
             case "funcion2":
+                this.maximizar = true;
                 return new Function2(this.tolerance);
             case "funcion3":
+                this.maximizar = true;
                 return new Function3(this.tolerance);
             case "funcion4":
+                this.maximizar = true;
                 return new Function4(this.tolerance);//,this.xi);
-            // case "funcion4dec":  
+            // case "funcion4dec": 
+            //    this.maximizar = true;
             // 	return new Function4dec(this.tol,this.xi);
             case "funcion5":
+                this.maximizar = true;
                 return new Function5(this.tolerance);
             default:
                 System.err.println("Error");

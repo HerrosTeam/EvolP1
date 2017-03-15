@@ -44,4 +44,10 @@ public class Function1 extends Chromosome{
         this.fenotype.add(result);
     }
 
+    @Override
+    public double getAdaptation(double cmax, double fmin) {
+        this.adaptation = cmax - this.fitness; 
+        return this.adaptation;
+    }
+
 }

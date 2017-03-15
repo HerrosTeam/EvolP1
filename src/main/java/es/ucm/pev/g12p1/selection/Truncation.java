@@ -21,7 +21,7 @@ public class Truncation extends Selection{
         double trunc = 0.5; //trunc = x ->[0.1, 0.5]
         double timesSelected = (Integer)1/trunc;
         this.population = population;
-        quickSort(0, population.size());
+        quickSort(0, population.size()-1);
         
         for(int i=0; i<this.population.size()*trunc; i++){
             for(int j=0; j<timesSelected; j++){

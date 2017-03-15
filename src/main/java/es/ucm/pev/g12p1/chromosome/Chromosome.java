@@ -27,6 +27,7 @@ public abstract class Chromosome {
     protected double xmin, xmax;
     protected int chromosomeLength; //longitud del cromosoma
     protected double tolerance;
+    protected double adaptation;
     
     public Chromosome(double min, double max, double tolerance) {
         this.xmin = min;
@@ -69,4 +70,21 @@ public abstract class Chromosome {
         return this.scoreAccumulated;
     }
   
+    public abstract double getAdaptation(double cmax, double fmin);
+
+    public void setEscalation(double escalation) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setScore(double puntuacion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setAccumulatedScore(double puntuacionA) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public double getEscalation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
