@@ -17,16 +17,21 @@ public class Elite {
     
     private List<Chromosome> currentPopulation;
     private int eliteSize;
+    private List<Double> worstFitness;
     
     public Elite(int eliteSize) {
         this.eliteSize = eliteSize;
+        this.worstFitness = new LinkedList();
     }
     
     public List<Chromosome> getElite(List<Chromosome> currentPopulation){
         
         this.currentPopulation = currentPopulation;
         this.quickSort(0, this.currentPopulation.size()-1);
-        List<Chromosome> elite = new LinkedList();
+        for(int i=0; i<this.eliteSize; i++){
+            this.worstFitness.add(this.currentPopulation.get(currentPopulation.size()-i-1).getFitness());
+        }
+        
         return this.currentPopulation.subList(0,this.eliteSize);
     }
     
@@ -68,8 +73,16 @@ public class Elite {
     
     //replace worst
     public List<Chromosome> includeEliteRepWorst(List<Chromosome> population, List<Chromosome> eliteChromosomes) {
-        for(int i=0; i<eliteChromosomes.size(); i++){
-            population.set(i, eliteChromosomes.get(i));
+
+        boolean end = false;
+        for(int i=0; i<this.eliteSize; i++){
+            for(int j=0; j<population.size() && !end; j++){
+                if(population.get(j).getFitness()== this.worstFitness.get(i)){
+                    population.set(j, eliteChromosomes.get(i));
+                    end=true;
+                }
+            }
+            end=false;
         }
         return population;
     }

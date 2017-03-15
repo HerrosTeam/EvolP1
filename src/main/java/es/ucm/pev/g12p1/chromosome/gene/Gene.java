@@ -34,4 +34,6 @@ public abstract class Gene {
     }
 
     public abstract void initializeGene(Random randomNumber);
+    
+    public abstract void mutate(int i);
 }

@@ -24,7 +24,7 @@ public class BinaryGene extends Gene{
     @Override
     public void initializeGene(Random randomNumber) {
         for(int i=0; i < this.getLength(); i++){
-            this.setAllele(i, randomNumber.nextBoolean());
+            this.allele.add(randomNumber.nextBoolean());
         }
     }
     
@@ -35,5 +35,11 @@ public class BinaryGene extends Gene{
         else{ 
             return (length % 10) + 2 * bin2Dec(length/10);
         }
+    }
+
+    @Override
+    public void mutate(int i) {
+        boolean allele = (boolean) this.allele.get(i);
+        this.allele.set(i, !allele);
     }
 }

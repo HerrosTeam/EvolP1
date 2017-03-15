@@ -5,22 +5,31 @@
  */
 package es.ucm.pev.g12p1.chromosome.gene;
 
-import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author usuario_local
  */
 public class RealGene extends Gene{
+    private double min;
+    private double max;
     
-    public RealGene(int geneLength) {
+    public RealGene(int geneLength, double min, double max) {
         super(geneLength);
+        this.min=min;
+        this.max=max;
     }
 
     @Override
     public void initializeGene(Random randomNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.allele.add(randomNumber.nextDouble()*this.max);
+    }
+    
+    @Override
+    public void mutate(int i) {
+        this.allele.set(i, ThreadLocalRandom.current().nextDouble()*(max - min) + min);
     }
     
 }
