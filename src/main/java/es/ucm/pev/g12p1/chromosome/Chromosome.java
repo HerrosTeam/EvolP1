@@ -51,6 +51,10 @@ public abstract class Chromosome {
         return length;
     }
     
+    public double getFitness(){
+        return fitness;
+    }
+    
    public abstract void evaluate();
    
    public abstract void  fenotype();// fenotype =...
