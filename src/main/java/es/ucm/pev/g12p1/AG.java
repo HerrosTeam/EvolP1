@@ -62,8 +62,7 @@ public class AG {
     private double evolutionaryPressure;
 
     public AG(String function, int populationSize, int max_generations,
-            double prob_cross, double prob_mut, double tolerance, int seed,
-            int numGenes, Selection selection, Crossover crossover,
+            double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
             boolean elitism) {
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
@@ -73,7 +72,7 @@ public class AG {
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
-        this.mutation = new BasicMutation(prob_mut, population.size());
+        this.mutation = new BasicMutation(prob_mut, this.populationSize);
         this.elitism = elitism;
         if (elitism) {
             this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
@@ -236,19 +235,15 @@ public class AG {
             Chromosome parent1 = population.get(sel_cross[j]);
             Chromosome parent2 = population.get(sel_cross[j + 1]);
             List<Chromosome> children = this.crossover.crossover(parent1, parent2, cross_point);
-
+            children.get(0).fenotype();
+            children.get(1).fenotype();
+            children.get(0).evaluate();
+            children.get(1).evaluate();
             population.set(sel_cross[j], children.get(0));
             population.set(sel_cross[j + 1], children.get(1));
         }
     }
 
-    public double score(/*x*/) {
-        return 0;
-    }
-
-    public double accumulatedScore(/*x*/) {
-        return 0;
-    }
 
     private Chromosome createConcreteChromosome() {
         switch (this.function) {
@@ -256,17 +251,17 @@ public class AG {
                 this.maximizar = false;
                 return new Function1(this.tolerance);
             case "funcion2":
-                this.maximizar = true;
+                this.maximizar = false;
                 return new Function2(this.tolerance);
             case "funcion3":
                 this.maximizar = true;
                 return new Function3(this.tolerance);
             case "funcion4":
+                this.maximizar = false;
+                return new Function4(this.tolerance);
+           /* case "funcion4dec": 
                 this.maximizar = true;
-                return new Function4(this.tolerance);//,this.xi);
-            // case "funcion4dec": 
-            //    this.maximizar = true;
-            // 	return new Function4dec(this.tol,this.xi);
+             	return new Function4dec(this.tolerance,this.xi);*/
             case "funcion5":
                 this.maximizar = true;
                 return new Function5(this.tolerance);

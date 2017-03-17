@@ -18,16 +18,15 @@ public class Function1 extends Chromosome{
 
     public Function1(double tolerance) {
         super(-250, 250, tolerance);
+        this.chromosomeLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
         this.genes = new LinkedList();
-        int geneLength = 1;
-        Gene gene = new BinaryGene(geneLength);
-        this.genes.add(new BinaryGene(geneLength));
+        this.genes.add(new BinaryGene(chromosomeLength));
     } 
     
     public double function(double x){
-        return -1 * Math.abs(x * Math.sin( Math.sqrt( Math.abs(x))));
+        return -1 * Math.abs(x * Math.sin(Math.sqrt(Math.abs(x))));
     }
     
     @Override
@@ -40,8 +39,9 @@ public class Function1 extends Chromosome{
     public void fenotype(){        
         BinaryGene a = (BinaryGene) this.genes.get(0);
         double aDec = a.bin2Dec(chromosomeLength);
-        double result = this.xmin + (this.xmax - this.xmin) * aDec;
-        this.fenotype.add(result);
+        double result = this.xmin+(this.xmax-this.xmin)*aDec
+                / (Math.pow(2, this.genes.get(0).getLength())-1);
+        this.fenotype.add(0, result);
     }
 
     @Override
