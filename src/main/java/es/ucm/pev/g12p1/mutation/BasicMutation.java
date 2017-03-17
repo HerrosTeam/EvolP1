@@ -19,18 +19,29 @@ public class BasicMutation extends Mutation{
     public BasicMutation(double probabilityOfMutation, int populationSize) {
         super(probabilityOfMutation, populationSize);
     }
-    
-    public List<Chromosome> basicMutation(List<Chromosome> population, double probCruce){
-        List<Double> probabilities = new LinkedList();
-        for(Chromosome c : population){
-            probabilities.add(ThreadLocalRandom.current().nextDouble(0, 1+1));
-        }
+
+    @Override
+    public List<Chromosome> mutate(List<Chromosome> population) {
         
-        for(int i=0; i<population.size(); i++){
-            if(probabilities.get(i) < probCruce){
-            
+        boolean mutated;
+        double probability;
+        for(int i=0; i<this.populationSize; i++){
+            mutated=false;
+            for(int j=0; j<population.get(i).getGenes().size(); j++){
+                for(int k=0; k<population.get(i).getGene(j).getLength(); k++){
+                    probability=ThreadLocalRandom.current().nextDouble(0, 1 + 1);
+                    if(probability<this.probabilityOfMutation){
+                        population.get(i).getGene(j).mutate(k);
+                        mutated=true;
+                    }
+                }
+            }
+            if(mutated){
+                population.get(i).fenotype();
+                population.get(i).evaluate();
             }
         }
-        return null;
+        return population;
     }
+    
 }

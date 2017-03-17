@@ -8,7 +8,7 @@ package es.ucm.pev.g12p1.crossover;
 import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  *

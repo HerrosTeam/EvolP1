@@ -95,7 +95,7 @@ public class AG {
 
             this.selection();
             this.crossover();
-            this.mutation.mutate();
+            this.population= this.mutation.mutate(this.population);
 
             if (elitism) {
                 this.population = this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
