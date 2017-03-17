@@ -65,11 +65,5 @@ public class Function3 extends Chromosome{
         return this.adaptation;
     }
 
-    @Override
-    public double getAdaptation(double cmax, double fmin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
     
 }

@@ -62,6 +62,7 @@ public class AG {
     private double evolutionaryPressure;
 
     public AG(String function, int populationSize, int max_generations,
+
             double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
             boolean elitism) {
         this.populationSize = populationSize;
@@ -72,7 +73,9 @@ public class AG {
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
-        this.mutation = new BasicMutation(prob_mut, this.populationSize);
+
+        this.mutation = new BasicMutation(prob_mut, populationSize);
+
         this.elitism = elitism;
         if (elitism) {
             this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
