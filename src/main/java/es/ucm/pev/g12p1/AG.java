@@ -63,7 +63,7 @@ public class AG {
 
     public AG(String function, int populationSize, int max_generations,
             double prob_cross, double prob_mut, double tolerance, int seed,
-            int numGenes, Selection selection, Crossover crossover,
+            Selection selection, Crossover crossover,
             boolean elitism) {
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
@@ -73,7 +73,7 @@ public class AG {
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
-        this.mutation = new BasicMutation(prob_mut, population.size());
+        this.mutation = new BasicMutation(prob_mut, populationSize);
         this.elitism = elitism;
         if (elitism) {
             this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);

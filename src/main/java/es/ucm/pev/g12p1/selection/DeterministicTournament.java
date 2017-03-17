@@ -13,28 +13,32 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class DeterministicTournament extends Selection{
+public class DeterministicTournament extends Selection {
+
+    public DeterministicTournament() {
+    }
 
     @Override
     public List<Chromosome> select(List<Chromosome> population) {
         List<Chromosome> newPopulation = new LinkedList();
-  
-        for(int i=0; i<population.size(); i++){
+
+        for (int i = 0; i < population.size(); i++) {
             int positionOfBest;
             double bestFitness;
             int random = ThreadLocalRandom.current().nextInt(0, population.size() + 1);
             positionOfBest = random;
             bestFitness = population.get(random).getFitness();
-            
+
             random = ThreadLocalRandom.current().nextInt(0, population.size() + 1);
-            if(bestFitness < population.get(random).getFitness())
+            if (bestFitness < population.get(random).getFitness()) {
                 positionOfBest = random;
+            }
 
             newPopulation.add(population.get(positionOfBest));
         }
         return newPopulation;
     }
-    
+
 }

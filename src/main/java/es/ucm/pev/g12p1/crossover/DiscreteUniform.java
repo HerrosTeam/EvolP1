@@ -12,26 +12,29 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class Uniform extends Crossover {
-    
+public class DiscreteUniform extends Crossover {
+
+    public DiscreteUniform() {
+    }
+
     @Override
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         List<Chromosome> children = new LinkedList();
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
-        double Pi=0.4;
-        for(int i=0; i<parent1.getLength(); i++){
+        double Pi = 0.4;
+        for (int i = 0; i < parent1.getLength(); i++) {
             double probability = ThreadLocalRandom.current().nextDouble(0, 1 + 1);
-            if(Pi > probability){
-                child1.getGene(i).setAllele(0,  parent2.getGene(i).getAllele(0));
-                child2.getGene(i).setAllele(0,  parent1.getGene(i).getAllele(0));
+            if (Pi > probability) {
+                child1.getGene(i).setAllele(0, parent2.getGene(i).getAllele(0));
+                child2.getGene(i).setAllele(0, parent1.getGene(i).getAllele(0));
             }
         }
         children.add(child1);
         children.add(child2);
-        
+
         return children;
     }
 }

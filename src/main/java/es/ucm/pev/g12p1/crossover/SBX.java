@@ -10,10 +10,13 @@ import java.util.List;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class SBX extends Crossover{
-    
+public class SBX extends Crossover {
+
+    public SBX() {
+    }
+
     @Override
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
