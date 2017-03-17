@@ -12,21 +12,24 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class Arithmetic extends Crossover{
+public class Arithmetic extends Crossover {
+
+    public Arithmetic() {
+    }
 
     @Override
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         List<Chromosome> children = new LinkedList();
-        
+
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
         double alpha = ThreadLocalRandom.current().nextDouble(0, 1 + 1);
-        for(int i=0; i<parent1.getLength(); i++){
-            double child1Gen = alpha*(Double)parent1.getGene(i).getAllele(0) + (1-alpha)*(Double)parent2.getGene(i).getAllele(0);
+        for (int i = 0; i < parent1.getLength(); i++) {
+            double child1Gen = alpha * (Double) parent1.getGene(i).getAllele(0) + (1 - alpha) * (Double) parent2.getGene(i).getAllele(0);
             child1.getGene(i).setAllele(0, child1Gen);
-            double child2Gen = alpha*(Double)parent2.getGene(i).getAllele(0) + (1-alpha)*(Double)parent1.getGene(i).getAllele(0);
+            double child2Gen = alpha * (Double) parent2.getGene(i).getAllele(0) + (1 - alpha) * (Double) parent1.getGene(i).getAllele(0);
             child2.getGene(i).setAllele(0, child2Gen);
         }
         children.add(child1);
@@ -34,5 +37,5 @@ public class Arithmetic extends Crossover{
 
         return children;
     }
-    
+
 }

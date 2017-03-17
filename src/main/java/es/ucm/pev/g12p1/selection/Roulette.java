@@ -12,26 +12,29 @@ import java.util.Random;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class Roulette extends Selection{
-    
-     @Override
-     public List<Chromosome> select(List<Chromosome> population){
+public class Roulette extends Selection {
+
+    public Roulette() {
+    }
+
+    @Override
+    public List<Chromosome> select(List<Chromosome> population) {
         List<Chromosome> newPopulation = new LinkedList();
         double probability;
         int survivorPos;
-        Random randomNumber =  new Random();
-        for(Chromosome c: population){
+        Random randomNumber = new Random();
+        for (Chromosome c : population) {
             probability = randomNumber.nextDouble();
             survivorPos = 0;
-            while(probability > population.get(survivorPos).getScoreAccumulated() && 
-                    (survivorPos < population.size())){
+            while (probability > population.get(survivorPos).getScoreAccumulated()
+                    && (survivorPos < population.size())) {
                 survivorPos++;
             }
             newPopulation.add(population.get(survivorPos));
         }
-            
+
         return newPopulation;
     }
 

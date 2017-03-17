@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * @author usuario_local
+ * @author Herros Team
  */
 public abstract class Selection {
     

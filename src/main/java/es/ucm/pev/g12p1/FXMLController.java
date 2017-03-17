@@ -1,15 +1,23 @@
 package es.ucm.pev.g12p1;
 
+import es.ucm.pev.g12p1.crossover.Crossover;
+import es.ucm.pev.g12p1.crossover.CrossoverFactory;
+import es.ucm.pev.g12p1.selection.Selection;
+import es.ucm.pev.g12p1.selection.SelectionFactory;
+import javafx.scene.control.CheckBox;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class FXMLController implements Initializable {
+
+    List<AG> currentAGs;
     
     @FXML
     private TextField txtPrecision;
@@ -27,36 +35,62 @@ public class FXMLController implements Initializable {
     private TextField txtSeleccion1;
     @FXML
     private TextField txtSeleccion2;
-    
+
     @FXML
     private ComboBox cboFuncion;
     @FXML
     private ComboBox cboCruce;
     @FXML
     private ComboBox cboSeleccion;
-    
+
+    @FXML
+    private javafx.scene.control.CheckBox chbElitism;
+
     @FXML
     private void onCopiarButton(ActionEvent event) {
         System.out.println("You clicked me!");
     }
-    
+
     @FXML
     private void onLanzarButton(ActionEvent event) {
         System.out.println("You clicked me!");
     }
-    
+
     @FXML
     private void onRelanzarButton(ActionEvent event) {
         System.out.println("You clicked me!");
     }
-    
+
     @FXML
     private void onCrearAGButton(ActionEvent event) {
+        String function = cboFuncion.getSelectionModel().getSelectedItem().toString();
+        int populationSize = Integer.parseInt(txtPoblacion.getText());
+        int max_generations = Integer.parseInt(txtIteraciones.getText());
+        double prob_cross = Double.parseDouble(txtCruces.getText());
+        double prob_mut = Double.parseDouble(txtMutacion.getText());
+        double tolerance = Double.parseDouble(txtPrecision.getText());
+        int seed = Integer.parseInt(txtIteraciones.getText());
+        Selection selection = SelectionFactory.getSelectionAlgorithm(cboSeleccion.getSelectionModel().getSelectedItem().toString());
+        Crossover crossover = CrossoverFactory.getCrossoverAlgorithm(cboCruce.getSelectionModel().getSelectedItem().toString());
+        boolean elitism = chbElitism.isSelected();
+
+        AG newAG = new AG(function, populationSize, max_generations, prob_cross, 
+                prob_mut, tolerance, seed, selection, crossover, elitism);
+        
+        this.currentAGs.add(newAG);
+        newAG.executeAlgorithm();
+    }
+
+    @FXML
+    private void onEliminarButton(ActionEvent event) {
         System.out.println("You clicked me!");
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        currentAGs = new LinkedList<>();
+        
         cboFuncion.getItems().addAll(
                 "Función 1",
                 "Función 2",
@@ -64,15 +98,24 @@ public class FXMLController implements Initializable {
                 "Función 4",
                 "Función 5"
         );
-        
+        cboFuncion.getSelectionModel().selectFirst();
+
         cboCruce.getItems().addAll(
                 "Monopunto",
-                "Mutación"
+                "Multipunto",
+                "Aritmético",
+                "SBX",
+                "Discreto Uniforme"
         );
-        
+        cboCruce.getSelectionModel().selectFirst();
+
         cboSeleccion.getItems().addAll(
-                "Torneo Estocástico",
-                "Ruleta"
+                "Ruleta",
+                "Estocástico Universal",
+                "Truncamiento",
+                "Torneo Determinista",
+                "Torneo Probabilístico"
         );
-    }    
+        cboSeleccion.getSelectionModel().selectFirst();
+    }
 }

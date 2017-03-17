@@ -12,28 +12,31 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author PoVALE Team
+ * @author Herros Team
  */
-public class StochasticUniversal extends Selection{
+public class StochasticUniversal extends Selection {
+
+    public StochasticUniversal() {
+    }
 
     @Override
     public List<Chromosome> select(List<Chromosome> population) {
         List<Chromosome> newPopulation = new LinkedList();
-        double space = 1/population.size();
+        double space = 1 / population.size();
         double probability = ThreadLocalRandom.current().nextDouble() * space;
         int survivorPos;
-        for(Chromosome c: population){
+        for (Chromosome c : population) {
             survivorPos = 0;
-            while(probability > population.get(survivorPos).getScoreAccumulated() && 
-                    (survivorPos < population.size())){
+            while (probability > population.get(survivorPos).getScoreAccumulated()
+                    && (survivorPos < population.size())) {
                 survivorPos++;
             }
             newPopulation.add(population.get(survivorPos));
-            probability+=space;
+            probability += space;
         }
-            
+
         return newPopulation;
-        
+
     }
-    
+
 }
