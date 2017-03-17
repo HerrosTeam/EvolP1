@@ -65,6 +65,7 @@ public class AG {
 
             double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
             boolean elitism) {
+        this.function = function;
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
         this.probCrossover = prob_cross;
@@ -250,22 +251,22 @@ public class AG {
 
     private Chromosome createConcreteChromosome() {
         switch (this.function) {
-            case "funcion1":
+            case "Función 1":
                 this.maximizar = false;
                 return new Function1(this.tolerance);
-            case "funcion2":
-                this.maximizar = false;
+            case "Función 2":
+                this.maximizar = true;
                 return new Function2(this.tolerance);
-            case "funcion3":
+            case "Función 3":
                 this.maximizar = true;
                 return new Function3(this.tolerance);
-            case "funcion4":
-                this.maximizar = false;
-                return new Function4(this.tolerance);
-           /* case "funcion4dec": 
+            case "Función 4":
                 this.maximizar = true;
-             	return new Function4dec(this.tolerance,this.xi);*/
-            case "funcion5":
+                return new Function4(this.tolerance);//,this.xi);
+            // case "funcion4dec": 
+            //    this.maximizar = true;
+            // 	return new Function4dec(this.tol,this.xi);
+            case "Función 5":
                 this.maximizar = true;
                 return new Function5(this.tolerance);
             default:
