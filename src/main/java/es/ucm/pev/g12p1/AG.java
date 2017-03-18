@@ -130,6 +130,7 @@ public class AG {
     }
 
     public void evaluate(/*x*/) {//la recibimos
+        this.bestChromosome = this.population.get(0);
         double bestFitness = 0;
         double sumFitness = 0;
         int bestPosition = 0;
