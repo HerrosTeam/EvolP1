@@ -12,6 +12,7 @@ es/ucm/pev/g12p1/chromosome/Function4Real.class
 es/ucm/pev/g12p1/chromosome/gene/RealGene.class
 es/ucm/pev/g12p1/FXMLController.class
 es/ucm/pev/g12p1/chromosome/gene/Gene.class
+es/ucm/pev/g12p1/crossover/Uniform.class
 es/ucm/pev/g12p1/crossover/SBX.class
 es/ucm/pev/g12p1/selection/Roulette.class
 es/ucm/pev/g12p1/AG.class

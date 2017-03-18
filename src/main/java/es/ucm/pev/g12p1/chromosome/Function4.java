@@ -20,7 +20,7 @@ public class Function4 extends Chromosome{
     public Function4(double tolerance) {
         super(0, Math.PI, tolerance);
         numGenes = 7;
-        int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance)/Math.log(2));
         this.chromosomeLength = numGenes * geneLength;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;

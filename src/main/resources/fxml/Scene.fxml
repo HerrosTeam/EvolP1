@@ -180,16 +180,9 @@
                         </CheckBox>
                         <Button fx:id="btnCrearAG" alignment="CENTER" mnemonicParsing="false" onAction="#onCrearAGButton" text="Lanzar AG" textAlignment="CENTER">
                            <VBox.margin>
-                              <Insets bottom="-15.0" left="60.0" />
+                              <Insets bottom="-10.0" left="60.0" top="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnCopiar" mnemonicParsing="false" onAction="#onCopiarButton" prefHeight="27.0" prefWidth="215.0" text="Lanza una copia">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnRelanzar" maxWidth="215.0" mnemonicParsing="false" onAction="#onRelanzarButton" text="Relanza este AG" />
-                        <Button fx:id="btnEliminar" maxWidth="215.0" mnemonicParsing="false" onAction="#onEliminarButton" text="Elimina este AG" />
                      </children>
                   </VBox>
                </children>

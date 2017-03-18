@@ -16,7 +16,7 @@ public class Function1 extends Chromosome{
 
     public Function1(double tolerance) {
         super(-250, 250, tolerance);
-        int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance)/Math.log(2));
         this.chromosomeLength = geneLength;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
@@ -25,7 +25,7 @@ public class Function1 extends Chromosome{
     } 
     
     public double function(double x){
-        return -1 * Math.abs(x * Math.sin(Math.sqrt(Math.abs(x))));
+        return -1* Math.abs(x*Math.sin(Math.sqrt(Math.abs(x))));
     }
     
     @Override

@@ -123,12 +123,14 @@ public class AG {
         for (int i = 0; i < this.populationSize; i++) {
             Chromosome c = createConcreteChromosome();
             c.inicializeChromosome(this.randomNumber);
+            c.evaluate();
             population.add(c);
         }
     }
 
     public void evaluate(/*x*/) {//la recibimos
         this.bestChromosome = this.population.get(0);
+        
         double bestFitness = 0;
         double sumFitness = 0;
         this.bestPosition = 0;
@@ -226,7 +228,7 @@ public class AG {
             num_sel_cross--;
         }
 
-        int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength());
+        int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength()-1);
 
         for (int j = 0; j < num_sel_cross; j += 2) {
             Chromosome parent1 = population.get(sel_cross[j]);

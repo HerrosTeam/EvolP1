@@ -68,21 +68,6 @@ public class FXMLController implements Initializable {
     private javafx.scene.control.CheckBox chbElitism;
 
     @FXML
-    private void onCopiarButton(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-
-    @FXML
-    private void onLanzarButton(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-
-    @FXML
-    private void onRelanzarButton(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-
-    @FXML
     private void onCrearAGButton(ActionEvent event) {
         
         String function = cboFuncion.getSelectionModel().getSelectedItem().toString();
@@ -107,7 +92,6 @@ public class FXMLController implements Initializable {
         JPanel graphPanel = new JPanel();
         plot = new Plot2DPanel();
 	plot.addLegend("SOUTH");
-	//plot.setBounds(10, 10, 810, 700);
         plot.setPreferredSize(new Dimension(610, 460));
 	graphPanel.add(plot);
         swingNode.setContent(graphPanel);

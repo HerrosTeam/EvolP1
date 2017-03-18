@@ -28,4 +28,5 @@
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/gene/RealGene.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/Function2.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/selection/Truncation.java
+/Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/crossover/Uniform.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/Chromosome.java

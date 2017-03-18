@@ -18,7 +18,7 @@ public class Function2 extends Chromosome{
 
     public Function2(double tolerance) {
         super(-512, 512, tolerance);
-        int geneLengthXi = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        int geneLengthXi = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance)/Math.log(2));
         this.chromosomeLength = 2 * geneLengthXi;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
