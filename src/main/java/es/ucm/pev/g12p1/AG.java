@@ -19,17 +19,15 @@ import es.ucm.pev.g12p1.mutation.Mutation;
 import es.ucm.pev.g12p1.selection.Selection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Observable;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Function;
-import org.w3c.dom.Element;
 
 /**
  *
  * @author Herros_Team
  */
-public class AG {
+public class AG extends Observable{
 
     private List<Chromosome> population;
     private int populationSize;
@@ -207,7 +205,7 @@ public class AG {
             this.population.get(i).setScore(score);
             this.population.get(i).setAccumulatedScore(accumulatedScore);
         }
-
+        //notifyObservers();
         //this.puntos[0][this.currentGeneration] = this.currentGeneration;
         //this.puntos[1][this.currentGeneration] = this.mejor.getAptitud();
         //this.puntos[2][this.currentGeneration] = this.mejorGeneracion.getAptitud();
@@ -275,6 +273,10 @@ public class AG {
                 System.err.println("Error");
                 return null;
         }
+    }
+
+    public int getGeneration() {
+        return this.currentGeneration;
     }
 
 }

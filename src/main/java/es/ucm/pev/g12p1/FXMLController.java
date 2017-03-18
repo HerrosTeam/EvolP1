@@ -8,16 +8,21 @@ import javafx.scene.control.CheckBox;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class FXMLController implements Initializable {
 
-    List<AG> currentAGs;
+    private List<AGView> currentAGViews;
     
     @FXML
     private TextField txtPrecision;
@@ -42,7 +47,10 @@ public class FXMLController implements Initializable {
     private ComboBox cboCruce;
     @FXML
     private ComboBox cboSeleccion;
-
+    
+    @FXML
+    private LineChart lineChart;
+    
     @FXML
     private javafx.scene.control.CheckBox chbElitism;
 
@@ -77,7 +85,9 @@ public class FXMLController implements Initializable {
         AG newAG = new AG(function, populationSize, max_generations, prob_cross, 
                 prob_mut, tolerance, seed, selection, crossover, elitism);
         
-        this.currentAGs.add(newAG);
+        //crear nuevo Tab, con nuevo graph, con nuevo AG
+        
+        
         newAG.executeAlgorithm();
     }
 
@@ -88,8 +98,6 @@ public class FXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        currentAGs = new LinkedList<>();
         
         cboFuncion.getItems().addAll(
                 "Función 1",
@@ -117,5 +125,6 @@ public class FXMLController implements Initializable {
                 "Torneo Probabilístico"
         );
         cboSeleccion.getSelectionModel().selectFirst();
+        
     }
 }
