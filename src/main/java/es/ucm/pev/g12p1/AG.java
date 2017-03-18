@@ -72,8 +72,8 @@ public class AG {
         this.function = function;
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
-        this.probCrossover = prob_cross;
-        this.probMutation = prob_mut;
+        this.probCrossover = prob_cross/100;
+        this.probMutation = prob_mut/100;
         this.tolerance = tolerance;
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
