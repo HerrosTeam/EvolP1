@@ -20,6 +20,7 @@ import es.ucm.pev.g12p1.selection.Selection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -27,7 +28,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Herros_Team
  */
-public class AG extends Observable{
+public class AG {
 
     private List<Chromosome> population;
     private int populationSize;
@@ -36,6 +37,7 @@ public class AG extends Observable{
     private int maxGenerations;
 
     private Chromosome bestChromosome;
+    private int bestPosition;
 
     private double probCrossover;
     private double probMutation;
@@ -44,7 +46,7 @@ public class AG extends Observable{
     private Crossover crossover;
     private Selection selection;
     private String function;
-    
+
     private Random randomNumber;
     private Mutation mutation;
 
@@ -57,13 +59,16 @@ public class AG extends Observable{
     private Elite elite;
 
     private double average;
-    
+
     private double evolutionaryPressure;
-
+    
+    private FXMLController controller;
+    private double[][] graphPoints;
+    
     public AG(String function, int populationSize, int max_generations,
-
             double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
-            boolean elitism) {
+            boolean elitism, FXMLController controller) {
+        this.currentGeneration = 0;
         this.function = function;
         this.populationSize = populationSize;
         this.maxGenerations = max_generations;
@@ -73,22 +78,21 @@ public class AG extends Observable{
         this.randomNumber = (seed == 0 ? new Random() : new Random(seed));
         this.selection = selection;
         this.crossover = crossover;
-
         this.mutation = new BasicMutation(prob_mut, populationSize);
-
+        this.graphPoints = new double[4][maxGenerations+1];
         this.elitism = elitism;
         if (elitism) {
             this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
             this.elite = new Elite(this.elitismPopulation);
         }
         this.evolutionaryPressure = 1.5;
-
+        this.controller = controller;
     }
 
     public void executeAlgorithm() {
         this.initialize();
         this.evaluate();
-
+        //this.observer.update(this, this);
         while (currentGeneration != maxGenerations) {
 
             if (elitism) {
@@ -97,7 +101,7 @@ public class AG extends Observable{
 
             this.selection();
             this.crossover();
-            this.population= this.mutation.mutate(this.population);
+            this.population = this.mutation.mutate(this.population);
 
             if (elitism) {
                 this.population = this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
@@ -105,17 +109,13 @@ public class AG extends Observable{
             }
 
             this.evaluate();
+            this.graphPoints[0][this.currentGeneration]=getGeneration();
+            this.graphPoints[1][this.currentGeneration]=getAbsoluteBest();
+            this.graphPoints[2][this.currentGeneration]=getGenerationBest();
+            this.graphPoints[3][this.currentGeneration]=getGenerationAvg();
+            controller.generateGraph(graphPoints);
             currentGeneration++;
         }
-        //generar grafica
-        /*
-            selección(pob, parámetros);
-            reproduccion(pob, parámetros);
-            evaluacion(pob, parámetros, 
-            pos_mejor, sumadaptacion); 
-        }
-        devolver pob[pos_mejor];*/
-
     }
 
     private void initialize() {
@@ -131,7 +131,7 @@ public class AG extends Observable{
         this.bestChromosome = this.population.get(0);
         double bestFitness = 0;
         double sumFitness = 0;
-        int bestPosition = 0;
+        this.bestPosition = 0;
         double fmin = population.get(bestPosition).getFitness();
         double cmax = population.get(bestPosition).getFitness();
 
@@ -164,9 +164,7 @@ public class AG extends Observable{
         if (this.population.get(bestPosition).getFitness() > this.bestChromosome.getFitness()) {
             this.bestChromosome = this.population.get(bestPosition);
         }
-
         this.average = sumFitness / this.populationSize;
-
         this.adaptation(cmax, fmin);
     }
 
@@ -181,13 +179,13 @@ public class AG extends Observable{
         fmin = Math.abs(fmin);
 
         double sumAdaptations = 0;
-        
-        for (int i=0; i<this.populationSize; i++) {
+
+        for (int i = 0; i < this.populationSize; i++) {
             sumAdaptations += this.population.get(i).getAdaptation(cmax, fmin);
         }
 
         double avgAdaptations = sumAdaptations / this.populationSize;
-        double a = ((this.evolutionaryPressure - 1) * avgAdaptations)/(this.bestChromosome.getAdaptation(cmax, fmin) - avgAdaptations);
+        double a = ((this.evolutionaryPressure - 1) * avgAdaptations) / (this.bestChromosome.getAdaptation(cmax, fmin) - avgAdaptations);
         double b = (1 - a) * avgAdaptations;
         double sumEscalation = 0;
         for (int i = 0; i < this.populationSize; i++) {
@@ -205,11 +203,6 @@ public class AG extends Observable{
             this.population.get(i).setScore(score);
             this.population.get(i).setAccumulatedScore(accumulatedScore);
         }
-        //notifyObservers();
-        //this.puntos[0][this.currentGeneration] = this.currentGeneration;
-        //this.puntos[1][this.currentGeneration] = this.mejor.getAptitud();
-        //this.puntos[2][this.currentGeneration] = this.mejorGeneracion.getAptitud();
-        //this.puntos[3][this.currentGeneration] = this.average;
     }
 
     public void selection() {
@@ -233,7 +226,7 @@ public class AG extends Observable{
             num_sel_cross--;
         }
 
-        int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength() + 1);
+        int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength());
 
         for (int j = 0; j < num_sel_cross; j += 2) {
             Chromosome parent1 = population.get(sel_cross[j]);
@@ -247,7 +240,6 @@ public class AG extends Observable{
             population.set(sel_cross[j + 1], children.get(1));
         }
     }
-
 
     private Chromosome createConcreteChromosome() {
         switch (this.function) {
@@ -263,9 +255,9 @@ public class AG extends Observable{
             case "Función 4":
                 this.maximizar = true;
                 return new Function4(this.tolerance);
-            case "Función 4 reales": 
+            case "Función 4 reales":
                 this.maximizar = true;
-             	return new Function4Real(this.tolerance);
+                return new Function4Real(this.tolerance);
             case "Función 5":
                 this.maximizar = true;
                 return new Function5(this.tolerance);
@@ -278,5 +270,18 @@ public class AG extends Observable{
     public int getGeneration() {
         return this.currentGeneration;
     }
-
+    
+    public double getAbsoluteBest(){
+        return this.bestChromosome.getFitness();
+    }
+    
+    public double getGenerationBest(){
+        return this.population.get(this.bestPosition).getFitness();
+    }
+    
+    public double getGenerationAvg(){
+        return this.average;
+    }
+    
 }
+ 

@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -17,26 +20,30 @@ import javafx.scene.chart.XYChart;
  *
  * @author Herros Team
  */
-public class AGView implements Observer{
-    
-    LineChart graph;
-    XYChart.Series absoluteBest;
-    XYChart.Series generationBest;
-    XYChart.Series generationAvg;
-    
-    private AG AG;
+public class AGView {
 
-    public AGView(AG AG, LineChart graph) {
-        this.AG = AG;
+    private static LineChart graph;
+    private static XYChart.Series absoluteBest;
+    private static XYChart.Series generationBest;
+    private static XYChart.Series generationAvg;
+    private static ObservableList<Number> aB;
+    private static ObservableList<Number> gB;
+    private static ObservableList<Number> gA;
+
+    private AG ag;
+
+    public AGView(AG ag, LineChart graph) {
+        this.ag = ag;
         this.graph = graph;
         this.initializeLineChart();
-    }    
-    
-    private void initializeLineChart(){
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Generación");
-        yAxis.setLabel("Evaluación");
+    }
+
+    private void initializeLineChart() {
+
+        graph.getXAxis().setAutoRanging(false);
+        graph.getYAxis().setAutoRanging(false);
+        graph.getXAxis().setAnimated(false);
+        graph.getYAxis().setAnimated(false);
         
         absoluteBest = new XYChart.Series();
         absoluteBest.setName("Mejor absoluto");
@@ -46,14 +53,14 @@ public class AGView implements Observer{
         generationAvg.setName("Media de la generación");
         
         this.graph.getData().addAll(absoluteBest, generationBest, generationAvg);
-    }
 
-    @Override
-    public void update(Observable o, Object arg) {
-            absoluteBest.getData().add(new XYChart.Data(this.AG.getGeneration(), ((Double) arg)));
     }
     
-    
-    
-    
+    public void update(){
+        absoluteBest.getData().add(new XYChart.Data(ag.getGeneration(), ag.getAbsoluteBest()));
+        generationBest.getData().add(new XYChart.Data(ag.getGeneration(), ag.getGenerationBest()));
+        generationAvg.getData().add(new XYChart.Data(ag.getGeneration(), ag.getGenerationAvg()));
+    }
 }
+        
+        

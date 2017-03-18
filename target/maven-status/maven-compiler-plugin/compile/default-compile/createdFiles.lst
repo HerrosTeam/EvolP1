@@ -6,7 +6,9 @@ es/ucm/pev/g12p1/chromosome/Function3.class
 es/ucm/pev/g12p1/crossover/SinglePoint.class
 es/ucm/pev/g12p1/crossover/Crossover.class
 es/ucm/pev/g12p1/selection/StochasticUniversal.class
+es/ucm/pev/g12p1/AGView.class
 es/ucm/pev/g12p1/chromosome/Function4.class
+es/ucm/pev/g12p1/chromosome/Function4Real.class
 es/ucm/pev/g12p1/chromosome/gene/RealGene.class
 es/ucm/pev/g12p1/FXMLController.class
 es/ucm/pev/g12p1/chromosome/gene/Gene.class

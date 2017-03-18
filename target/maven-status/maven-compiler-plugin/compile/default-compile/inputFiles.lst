@@ -8,6 +8,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/selection/DeterministicTournament.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/MainApp.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/mutation/BasicMutation.java
+/Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/Function4Real.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/selection/Selection.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/gene/BinaryGene.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/crossover/DiscreteUniform.java
@@ -22,6 +23,7 @@
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/mutation/Mutation.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/crossover/Arithmetic.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/Function5.java
+/Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/AGView.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/selection/ProbabilisticTournament.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/gene/RealGene.java
 /Users/laurahernandoserrano/NetBeansProjects/EvolP1/src/main/java/es/ucm/pev/g12p1/chromosome/Function2.java
