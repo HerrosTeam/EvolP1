@@ -7,6 +7,7 @@ package es.ucm.pev.g12p1.chromosome;
 
 import es.ucm.pev.g12p1.chromosome.gene.BinaryGene;
 import es.ucm.pev.g12p1.chromosome.gene.Gene;
+import es.ucm.pev.g12p1.chromosome.gene.RealGene;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,29 +15,29 @@ import java.util.List;
  *
  * @author usuario_local
  */
-public class Function4 extends Chromosome{
+public class Function4Real extends Chromosome{
 
     private int numGenes;
-    public Function4(double tolerance) {
+    public Function4Real(double tolerance) {
         super(0, Math.PI, tolerance);
-        numGenes = 7;
-        int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
-        this.chromosomeLength = numGenes * geneLength;
+        numGenes = 6;
+        int geneLength = 1;
+        this.chromosomeLength = numGenes*geneLength;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
         this.genes = new LinkedList();
         for(int i=0; i<numGenes; i++){
-            this.genes.add(i, new BinaryGene(geneLength));
+            this.genes.add(i, new RealGene(geneLength, xmin, xmax));
         }
-        } 
+    } 
     
     public double function(List<Double> x){
-        double suma=0;
+        double sum=0;
         for(int i=0; i<numGenes; i++){
-            suma+= Math.sin(x.get(i))*Math.pow(Math.sin((i+1)* 
+            sum+= Math.sin(x.get(i))*Math.pow(Math.sin((i+1)* 
                     Math.pow(x.get(i), 2)) / Math.PI, 20);
         }
-      return suma * -1;
+      return sum * -1;
     }
     
     @Override
@@ -54,11 +55,8 @@ public class Function4 extends Chromosome{
     }
     
     private double getFenotype(Gene gene){
-        BinaryGene a = (BinaryGene) gene;
-        double aDec = a.bin2Dec(gene.getLength());
-        double result = this.xmin+(this.xmax-this.xmin)*aDec
-                / (Math.pow(2, gene.getLength())-1);
-        return result;
+        RealGene a = (RealGene) gene;
+        return a.getRealAllele();
     }
 
     @Override

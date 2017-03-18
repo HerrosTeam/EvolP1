@@ -21,14 +21,14 @@ public class Function3 extends Chromosome{
     
     public Function3(double tolerance) {
         super(-3, 12.1, tolerance);
-        int chromosomeLengthX = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
-        int chromosomeLengthY = (int) Math.ceil(Math.log(1+(ymax-ymin)/tolerance));
-        this.chromosomeLength = chromosomeLengthX+chromosomeLengthY;
+        int geneLengthX = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        int geneLengthY = (int) Math.ceil(Math.log(1+(ymax-ymin)/tolerance));
+        this.chromosomeLength = geneLengthX+geneLengthY;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
         this.genes = new LinkedList();
-        this.genes.add(new BinaryGene(chromosomeLengthX));
-        this.genes.add(new BinaryGene(chromosomeLengthY));
+        this.genes.add(0, new BinaryGene(geneLengthX));
+        this.genes.add(1, new BinaryGene(geneLengthY));
     } 
     
     public double function(List<Double> x){

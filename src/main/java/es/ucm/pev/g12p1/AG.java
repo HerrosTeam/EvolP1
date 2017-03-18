@@ -10,6 +10,7 @@ import es.ucm.pev.g12p1.chromosome.Function1;
 import es.ucm.pev.g12p1.chromosome.Function2;
 import es.ucm.pev.g12p1.chromosome.Function3;
 import es.ucm.pev.g12p1.chromosome.Function4;
+import es.ucm.pev.g12p1.chromosome.Function4Real;
 import es.ucm.pev.g12p1.chromosome.Function5;
 import es.ucm.pev.g12p1.crossover.Crossover;
 import es.ucm.pev.g12p1.elite.Elite;
@@ -262,10 +263,10 @@ public class AG {
                 return new Function3(this.tolerance);
             case "Función 4":
                 this.maximizar = true;
-                return new Function4(this.tolerance);//,this.xi);
-            // case "funcion4dec": 
-            //    this.maximizar = true;
-            // 	return new Function4dec(this.tol,this.xi);
+                return new Function4(this.tolerance);
+            case "Función 4 reales": 
+                this.maximizar = true;
+             	return new Function4Real(this.tolerance);
             case "Función 5":
                 this.maximizar = true;
                 return new Function5(this.tolerance);

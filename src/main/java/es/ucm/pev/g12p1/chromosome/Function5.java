@@ -5,6 +5,9 @@
  */
 package es.ucm.pev.g12p1.chromosome;
 
+import es.ucm.pev.g12p1.chromosome.gene.BinaryGene;
+import es.ucm.pev.g12p1.chromosome.gene.Gene;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,44 +16,56 @@ import java.util.List;
  */
 public class Function5 extends Chromosome{
 
-    private double n;
+    private double numGenes;
     public Function5(double tolerance) {
         super(-10, 10, tolerance);
-        n = 2;
+        this.numGenes = 2;
+        int geneLengthXi = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        this.chromosomeLength = 2 * geneLengthXi;
+        this.fenotype = new LinkedList();
+        this.tolerance = tolerance;
+        this.genes = new LinkedList();
+        this.genes.add(0, new BinaryGene(geneLengthXi));
+        this.genes.add(1, new BinaryGene(geneLengthXi));
     } 
     
     public double function(List<Double> x){
-        double suma1=0;
-        double suma2=0;
+        double sum1=0;
+        double sum2=0;
         for(int i=0; i<5; i++){
-            suma1+= i*Math.cos((i+1)*x.get(0)+i);
-            suma2+= i*Math.cos((i+1)*x.get(1)+i);
+            sum1+= i*Math.cos((i+1)*x.get(0)+i);
+            sum2+= i*Math.cos((i+1)*x.get(1)+i);
         }
-       
-
-      return suma1 * suma2;
+      return sum1 * sum2;
     }
     
-    @Override
+     @Override
     public void evaluate() {
-        
         fenotype();
         this.fitness = function(this.fenotype); 
     }
 
     @Override
     public void fenotype() {
-        for (int i=0; i<n; i++){
-            double result = this.xmin + (this.xmax - this.xmin);
-            this.fenotype.add(result);
-        }
+        
+        double result = getFenotype(this.genes.get(0));
+        this.fenotype.add(0, result);
+        double result1 = getFenotype(this.genes.get(1));
+        this.fenotype.add(1, result1);
+    }
+    
+    private double getFenotype(Gene gene){
+        BinaryGene a = (BinaryGene) gene;
+        double aDec = a.bin2Dec(gene.getLength());
+        double result = this.xmin+(this.xmax-this.xmin)*aDec
+                / (Math.pow(2, gene.getLength())-1);
+        return result;
     }
 
     @Override
     public double getAdaptation(double cmax, double fmin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.adaptation = cmax - this.fitness; 
+        return this.adaptation;
     }
-
-   
-    
+  
 }

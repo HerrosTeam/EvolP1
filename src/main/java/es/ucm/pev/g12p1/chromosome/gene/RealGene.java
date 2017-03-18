@@ -29,7 +29,11 @@ public class RealGene extends Gene{
     
     @Override
     public void mutate(int i) {
-        this.allele.set(i, ThreadLocalRandom.current().nextDouble()*(max - min) + min);
+        this.allele.set(0, ThreadLocalRandom.current().nextDouble()*(max - min) + min);
+    }
+    
+    public double getRealAllele(){
+        return (double) this.allele.get(0);
     }
     
 }

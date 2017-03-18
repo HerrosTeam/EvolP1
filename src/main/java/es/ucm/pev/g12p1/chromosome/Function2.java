@@ -18,13 +18,13 @@ public class Function2 extends Chromosome{
 
     public Function2(double tolerance) {
         super(-512, 512, tolerance);
-        int chromosomeLengthXi = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
-        this.chromosomeLength = 2 * chromosomeLengthXi;
+        int geneLengthXi = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance));
+        this.chromosomeLength = 2 * geneLengthXi;
         this.fenotype = new LinkedList();
         this.tolerance = tolerance;
         this.genes = new LinkedList();
-        this.genes.add(new BinaryGene(chromosomeLengthXi));
-        this.genes.add(new BinaryGene(chromosomeLengthXi));
+        this.genes.add(0, new BinaryGene(geneLengthXi));
+        this.genes.add(1, new BinaryGene(geneLengthXi));
     } 
     
     public double function(List<Double> x){
