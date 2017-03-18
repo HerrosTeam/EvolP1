@@ -6,8 +6,6 @@
 package es.ucm.pev.g12p1.chromosome;
 
 import es.ucm.pev.g12p1.chromosome.gene.BinaryGene;
-import es.ucm.pev.g12p1.chromosome.gene.Gene;
-import java.lang.reflect.Array;
 import java.util.LinkedList;
 
 /**

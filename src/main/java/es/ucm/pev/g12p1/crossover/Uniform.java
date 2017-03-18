@@ -14,34 +14,27 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Herros Team
  */
-public class TwoPoint extends Crossover {
+public class Uniform extends Crossover {
 
-    public TwoPoint() {
+    public Uniform() {
     }
 
     @Override
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         List<Chromosome> children = new LinkedList();
-
+        int randomNum;
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
-        int crossPoint2 = ThreadLocalRandom.current().nextInt(0, parent1.getLength()-1);
-        while (crossPoint == crossPoint2){
-            crossPoint2 = ThreadLocalRandom.current().nextInt(0, parent1.getLength()-1);
-        }
-        if(crossPoint > crossPoint2){
-            int aux = crossPoint;
-            crossPoint = crossPoint2;
-            crossPoint2 = aux;
-        }
-        //remorremos los alelos de los genes bit a bit
+
+        //recorremos los alelos de los genes bit a bit
         int currentGene = 0, sumGeneLengths = 0;
         for (int i = 0; i < parent1.getLength(); i++) {
             if (i >= parent1.getGene(currentGene).getLength() + sumGeneLengths) {
                 sumGeneLengths += parent1.getGene(currentGene).getLength();
                 currentGene++;
             }
-            if (i >= crossPoint && i <= crossPoint2) {
+            randomNum = ThreadLocalRandom.current().nextInt(0, 1);
+            if (randomNum == 1) {
                 child1.getGene(currentGene).setAllele(i - sumGeneLengths,
                         parent2.getGene(currentGene).getAllele(i - sumGeneLengths));
                 child2.getGene(currentGene).setAllele(i - sumGeneLengths,

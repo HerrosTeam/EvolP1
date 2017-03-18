@@ -29,7 +29,7 @@ public class BasicMutation extends Mutation{
             mutated=false;
             for(int j=0; j<population.get(i).getGenes().size(); j++){
                 for(int k=0; k<population.get(i).getGene(j).getLength(); k++){
-                    probability=ThreadLocalRandom.current().nextDouble(0, 1 + 1);
+                    probability=ThreadLocalRandom.current().nextDouble(0, 1);
                     if(probability<this.probabilityOfMutation){
                         population.get(i).getGene(j).mutate(k);
                         mutated=true;

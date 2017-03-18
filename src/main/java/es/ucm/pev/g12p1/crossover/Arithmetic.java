@@ -25,7 +25,7 @@ public class Arithmetic extends Crossover {
 
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
-        double alpha = ThreadLocalRandom.current().nextDouble(0, 1 + 1);
+        double alpha = ThreadLocalRandom.current().nextDouble(0, 1);
         for (int i = 0; i < parent1.getLength(); i++) {
             double child1Gen = alpha * (Double) parent1.getGene(i).getAllele(0) + (1 - alpha) * (Double) parent2.getGene(i).getAllele(0);
             child1.getGene(i).setAllele(0, child1Gen);

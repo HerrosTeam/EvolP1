@@ -26,7 +26,7 @@ public class DiscreteUniform extends Crossover {
         Chromosome child2 = parent2;
         double Pi = 0.4;
         for (int i = 0; i < parent1.getLength(); i++) {
-            double probability = ThreadLocalRandom.current().nextDouble(0, 1 + 1);
+            double probability = ThreadLocalRandom.current().nextDouble(0, 1);
             if (Pi > probability) {
                 child1.getGene(i).setAllele(0, parent2.getGene(i).getAllele(0));
                 child2.getGene(i).setAllele(0, parent1.getGene(i).getAllele(0));

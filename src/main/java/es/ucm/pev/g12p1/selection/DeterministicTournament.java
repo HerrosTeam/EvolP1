@@ -27,11 +27,11 @@ public class DeterministicTournament extends Selection {
         for (int i = 0; i < population.size(); i++) {
             int positionOfBest;
             double bestFitness;
-            int random = ThreadLocalRandom.current().nextInt(0, population.size() + 1);
+            int random = ThreadLocalRandom.current().nextInt(0, population.size()-1);
             positionOfBest = random;
             bestFitness = population.get(random).getFitness();
 
-            random = ThreadLocalRandom.current().nextInt(0, population.size() + 1);
+            random = ThreadLocalRandom.current().nextInt(0, population.size()-1);
             if (bestFitness < population.get(random).getFitness()) {
                 positionOfBest = random;
             }

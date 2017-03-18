@@ -24,7 +24,7 @@ public class RealGene extends Gene{
 
     @Override
     public void initializeGene(Random randomNumber) {
-        this.allele.add(ThreadLocalRandom.current().nextDouble(this.min, this.max + 1));
+        this.allele.add(ThreadLocalRandom.current().nextDouble(this.min, this.max));
     }
     
     @Override

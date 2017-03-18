@@ -16,7 +16,7 @@ public class CrossoverFactory {
             case "Monopunto":
                 return new SinglePoint();
             case "Multipunto":
-                return new TwoPoint();
+                return new Uniform();
             case "Aritmético":
                 return new Arithmetic();
             case "SBX":
