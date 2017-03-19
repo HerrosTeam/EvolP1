@@ -65,6 +65,18 @@ public class Function4Real extends Chromosome{
         return this.adaptation;
     }
 
+    @Override
+       public Chromosome copy() {
+        Chromosome c=new Function4Real(this.tolerance);	
+        c.genes = new LinkedList();
+        for(int i=0; i<this.numGenes; i++){
+            c.genes.add(i, this.genes.get(i).copy());
+        }
+        c.fenotype();
+        c.evaluate();
+        return c;
+    }
+
    
     
 }

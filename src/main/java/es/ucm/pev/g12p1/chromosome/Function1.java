@@ -35,7 +35,8 @@ public class Function1 extends Chromosome{
     }
 
     @Override
-    public void fenotype(){        
+    public void fenotype(){   
+        this.fenotype.clear();
         BinaryGene a = (BinaryGene) this.genes.get(0);
         double aDec = a.bin2Dec(chromosomeLength);
         double result = this.xmin+(this.xmax-this.xmin)*aDec
@@ -47,6 +48,16 @@ public class Function1 extends Chromosome{
     public double getAdaptation(double cmax, double fmin) {
         this.adaptation = cmax - this.fitness; 
         return this.adaptation;
+    }
+
+    @Override
+    public Chromosome copy() {
+        Chromosome c=new Function1(this.tolerance);	
+        c.genes = new LinkedList();
+        c.genes.add(0, this.genes.get(0).copy());
+        c.fenotype();
+        c.evaluate();
+        return c;
     }
 
 }

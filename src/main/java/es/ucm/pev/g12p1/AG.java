@@ -97,7 +97,8 @@ public class AG {
         while (currentGeneration != maxGenerations) {
 
             if (elitism) {
-                this.eliteChromosomes = this.elite.getElite(population);
+                this.eliteChromosomes.clear();
+                this.eliteChromosomes.addAll(this.elite.getElite(population));
             }
 
             this.selection();
@@ -105,7 +106,7 @@ public class AG {
             this.population = this.mutation.mutate(this.population);
 
             if (elitism) {
-                this.population = this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
+                this.population =this.elite.includeEliteRepWorst(this.population, this.eliteChromosomes);
                 this.eliteChromosomes.clear();
             }
 
@@ -130,12 +131,12 @@ public class AG {
             c.evaluate();
             population.add(c);
         }
-        this.bestChromosome = this.population.get(0);
+        this.bestChromosome = this.population.get(0).copy();
     }
 
     public void evaluate() {
         //this.bestChromosome = this.population.get(0);
-        this.bestGeneration = this.population.get(0);
+        this.bestGeneration = this.population.get(0).copy();
         double bestFitness = this.population.get(0).getFitness();
         double sumFitness = 0;
         //this.bestPosition = 0;
@@ -150,11 +151,11 @@ public class AG {
 
             if (maximizar) {
                 if (currentFitness > this.bestGeneration.getFitness()) {
-                    bestGeneration = this.population.get(i);
+                    bestGeneration = this.population.get(i).copy();
                 }
             } else if (!maximizar) {
                 if (currentFitness < this.bestGeneration.getFitness()) {
-                    bestGeneration = this.population.get(i);
+                    bestGeneration = this.population.get(i).copy();
                 }
             }
 
@@ -168,11 +169,11 @@ public class AG {
         
         if (maximizar) {
                 if (bestGeneration.getFitness() > this.bestChromosome.getFitness()) {
-                    bestChromosome = bestGeneration;
+                    bestChromosome = bestGeneration.copy();
                 }
             } else if (!maximizar) {
                 if (bestGeneration.getFitness() < this.bestChromosome.getFitness()) {
-                    bestChromosome = bestGeneration;
+                    bestChromosome = bestGeneration.copy();
                 }
             }
         
@@ -238,18 +239,17 @@ public class AG {
             num_sel_cross--;
         }
 
-        int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength()-1);
-
         for (int j = 0; j < num_sel_cross; j += 2) {
-            Chromosome parent1 = population.get(sel_cross[j]);
-            Chromosome parent2 = population.get(sel_cross[j + 1]);
+            Chromosome parent1 = population.get(sel_cross[j]).copy();
+            Chromosome parent2 = population.get(sel_cross[j + 1]).copy();
+            int cross_point = ThreadLocalRandom.current().nextInt(0, this.population.get(0).getLength()-1);
             List<Chromosome> children = this.crossover.crossover(parent1, parent2, cross_point);
             children.get(0).fenotype();
             children.get(1).fenotype();
             children.get(0).evaluate();
             children.get(1).evaluate();
-            population.set(sel_cross[j], children.get(0));
-            population.set(sel_cross[j + 1], children.get(1));
+            population.set(sel_cross[j], children.get(0).copy());
+            population.set(sel_cross[j + 1], children.get(1).copy());
         }
     }
 

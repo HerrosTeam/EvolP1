@@ -42,4 +42,17 @@ public class BinaryGene extends Gene{
         boolean allele = (boolean) this.allele.get(i);
         this.allele.set(i, !allele);
     }
+
+    @Override
+    public Gene copy() {
+        BinaryGene gene = new BinaryGene(this.getLength());
+        gene.getAlleleList().clear();
+        List<Boolean> a = new LinkedList();
+        for(int i=0; i<this.allele.size(); i++){
+            a.add((Boolean)allele.get(i));
+        }
+        gene.getAlleleList().addAll(a);
+    
+        return gene;
+    }
 }

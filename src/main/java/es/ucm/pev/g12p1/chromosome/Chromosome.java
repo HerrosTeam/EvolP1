@@ -88,4 +88,6 @@ public abstract class Chromosome {
     public double getEscalation() {
         return this.escalation;
     }
+    
+    public abstract Chromosome copy();
 }

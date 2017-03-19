@@ -22,8 +22,8 @@ public class SinglePoint extends Crossover {
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         List<Chromosome> children = new LinkedList();
 
-        Chromosome child1 = parent1;
-        Chromosome child2 = parent2;
+        Chromosome child1 = parent1.copy();
+        Chromosome child2 = parent2.copy();
 
         //remorremos los alelos de los genes bit a bit
         int currentGene = 0, sumGeneLengths = 0;

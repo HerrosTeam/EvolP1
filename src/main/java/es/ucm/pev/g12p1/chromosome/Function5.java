@@ -67,5 +67,16 @@ public class Function5 extends Chromosome{
         this.adaptation = cmax - this.fitness; 
         return this.adaptation;
     }
+
+    @Override
+    public Chromosome copy() {
+        Chromosome c=new Function5(this.tolerance);	
+        c.genes = new LinkedList();
+        c.genes.add(0, this.genes.get(0).copy());
+        c.genes.add(1, this.genes.get(1).copy());
+        c.fenotype();
+        c.evaluate();
+        return c;
+    }
   
 }

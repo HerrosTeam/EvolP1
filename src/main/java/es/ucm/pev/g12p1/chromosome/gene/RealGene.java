@@ -35,5 +35,13 @@ public class RealGene extends Gene{
     public double getRealAllele(){
         return (double) this.allele.get(0);
     }
+
+    @Override
+    public Gene copy() {
+        RealGene gene = new RealGene(this.getLength(), min, max);
+        gene.getAlleleList().clear();
+        gene.getAlleleList().add(0, this.allele.get(0));
+        return gene;
+    }
     
 }

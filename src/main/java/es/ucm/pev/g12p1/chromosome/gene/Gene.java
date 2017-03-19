@@ -32,8 +32,14 @@ public abstract class Gene {
     public void setAllele(int pos, Object allele){
         this.allele.set(pos, allele);
     }
+    
+    public List<Object> getAlleleList(){
+        return this.allele;
+    }
 
     public abstract void initializeGene(Random randomNumber);
     
     public abstract void mutate(int i);
+
+    public abstract Gene copy();
 }

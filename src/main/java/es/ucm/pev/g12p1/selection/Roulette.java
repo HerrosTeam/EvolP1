@@ -25,14 +25,14 @@ public class Roulette extends Selection {
         double probability;
         int survivorPos;
         Random randomNumber = new Random();
-        for (Chromosome c : population) {
+        for (int i=0; i<population.size();i++) {
             probability = randomNumber.nextDouble();
             survivorPos = 0;
             while (probability > population.get(survivorPos).getScoreAccumulated()
                     && (survivorPos < population.size())) {
                 survivorPos++;
             }
-            newPopulation.add(population.get(survivorPos));
+            newPopulation.add(i, population.get(survivorPos));
         }
 
         return newPopulation;

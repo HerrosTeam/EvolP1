@@ -65,5 +65,16 @@ public class Function3 extends Chromosome{
         return this.adaptation;
     }
 
+    @Override
+    public Chromosome copy() {
+        Chromosome c=new Function3(this.tolerance);	
+        c.genes = new LinkedList();
+        c.genes.add(0, this.genes.get(0).copy());
+        c.genes.add(1, this.genes.get(1).copy());
+        c.fenotype();
+        c.evaluate();
+        return c;
+    }
+
     
 }
