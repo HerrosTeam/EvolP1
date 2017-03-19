@@ -36,6 +36,7 @@ public class AG {
     private int currentGeneration;
     private int maxGenerations;
 
+    private Chromosome bestGeneration;
     private Chromosome bestChromosome;
     private int bestPosition;
 
@@ -109,11 +110,13 @@ public class AG {
             }
 
             this.evaluate();
+            
             this.graphPoints[0][this.currentGeneration]=getGeneration();
             this.graphPoints[1][this.currentGeneration]=getAbsoluteBest();
             this.graphPoints[2][this.currentGeneration]=getGenerationBest();
             this.graphPoints[3][this.currentGeneration]=getGenerationAvg();
             controller.generateGraph(graphPoints);
+            
             currentGeneration++;
         }
     }
@@ -126,16 +129,17 @@ public class AG {
             c.evaluate();
             population.add(c);
         }
+        this.bestChromosome = this.population.get(0);
     }
 
-    public void evaluate(/*x*/) {//la recibimos
-        this.bestChromosome = this.population.get(0);
-        
-        double bestFitness = 0;
+    public void evaluate() {
+        //this.bestChromosome = this.population.get(0);
+        this.bestGeneration = this.population.get(0);
+        double bestFitness = this.population.get(0).getFitness();
         double sumFitness = 0;
-        this.bestPosition = 0;
-        double fmin = population.get(bestPosition).getFitness();
-        double cmax = population.get(bestPosition).getFitness();
+        //this.bestPosition = 0;
+        double fmin = bestGeneration.getFitness();
+        double cmax = bestGeneration.getFitness();
 
         for (int i = 0; i < this.populationSize; i++) {
             this.population.get(i).fenotype();
@@ -144,14 +148,12 @@ public class AG {
             sumFitness += currentFitness;
 
             if (maximizar) {
-                if (currentFitness > bestFitness) {
-                    bestPosition = i;
-                    bestFitness = currentFitness;
+                if (currentFitness > this.bestGeneration.getFitness()) {
+                    bestGeneration = this.population.get(i);
                 }
             } else if (!maximizar) {
-                if (currentFitness < bestFitness) {
-                    bestPosition = i;
-                    bestFitness = currentFitness;
+                if (currentFitness < this.bestGeneration.getFitness()) {
+                    bestGeneration = this.population.get(i);
                 }
             }
 
@@ -162,10 +164,17 @@ public class AG {
                 cmax = currentFitness;
             }
         }
-
-        if (this.population.get(bestPosition).getFitness() > this.bestChromosome.getFitness()) {
-            this.bestChromosome = this.population.get(bestPosition);
-        }
+        
+        if (maximizar) {
+                if (bestGeneration.getFitness() > this.bestChromosome.getFitness()) {
+                    bestChromosome = bestGeneration;
+                }
+            } else if (!maximizar) {
+                if (bestGeneration.getFitness() < this.bestChromosome.getFitness()) {
+                    bestChromosome = bestGeneration;
+                }
+            }
+        
         this.average = sumFitness / this.populationSize;
         this.adaptation(cmax, fmin);
     }
@@ -187,7 +196,7 @@ public class AG {
         }
 
         double avgAdaptations = sumAdaptations / this.populationSize;
-        double a = ((this.evolutionaryPressure - 1) * avgAdaptations) / (this.bestChromosome.getAdaptation(cmax, fmin) - avgAdaptations);
+        double a = ((this.evolutionaryPressure - 1) * avgAdaptations) / (this.bestGeneration.getAdaptation(cmax, fmin) - avgAdaptations);
         double b = (1 - a) * avgAdaptations;
         double sumEscalation = 0;
         for (int i = 0; i < this.populationSize; i++) {
@@ -278,7 +287,7 @@ public class AG {
     }
     
     public double getGenerationBest(){
-        return this.population.get(this.bestPosition).getFitness();
+        return this.bestGeneration.getFitness();
     }
     
     public double getGenerationAvg(){
