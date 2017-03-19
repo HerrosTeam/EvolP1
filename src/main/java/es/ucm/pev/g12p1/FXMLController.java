@@ -113,11 +113,6 @@ public class FXMLController implements Initializable {
     	plot.addLinePlot("Media de la generación", graphPoints[0], graphPoints[3]);
     }
 
-    @FXML
-    private void onEliminarButton(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         count=1;

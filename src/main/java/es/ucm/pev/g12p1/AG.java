@@ -80,7 +80,7 @@ public class AG {
         this.selection = selection;
         this.crossover = crossover;
         this.mutation = new BasicMutation(prob_mut, populationSize);
-        this.graphPoints = new double[4][maxGenerations+1];
+        this.graphPoints = new double[4][maxGenerations];
         this.elitism = elitism;
         if (elitism) {
             this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
@@ -115,6 +115,7 @@ public class AG {
             this.graphPoints[1][this.currentGeneration]=getAbsoluteBest();
             this.graphPoints[2][this.currentGeneration]=getGenerationBest();
             this.graphPoints[3][this.currentGeneration]=getGenerationAvg();
+            
             controller.generateGraph(graphPoints);
             
             currentGeneration++;
