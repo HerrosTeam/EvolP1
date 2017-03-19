@@ -76,7 +76,7 @@ public class FXMLController implements Initializable {
         double prob_cross = Double.parseDouble(txtCruces.getText());
         double prob_mut = Double.parseDouble(txtMutacion.getText());
         double tolerance = Double.parseDouble(txtPrecision.getText());
-        int seed = Integer.parseInt(txtIteraciones.getText());
+        int seed = Integer.parseInt(txtSemilla.getText());
         Selection selection = SelectionFactory.getSelectionAlgorithm(cboSeleccion.getSelectionModel().getSelectedItem().toString());
         Crossover crossover = CrossoverFactory.getCrossoverAlgorithm(cboCruce.getSelectionModel().getSelectedItem().toString());
         boolean elitism = chbElitism.isSelected();
@@ -121,6 +121,7 @@ public class FXMLController implements Initializable {
                 "Función 2",
                 "Función 3",
                 "Función 4",
+                "Función 4 reales",
                 "Función 5"
         );
         cboFuncion.getSelectionModel().selectFirst();

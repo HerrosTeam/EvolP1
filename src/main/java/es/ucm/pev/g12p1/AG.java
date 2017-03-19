@@ -88,6 +88,7 @@ public class AG {
         }
         this.evolutionaryPressure = 1.5;
         this.controller = controller;
+        this.eliteChromosomes = new LinkedList<>();
     }
 
     public void executeAlgorithm() {
