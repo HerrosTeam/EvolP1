@@ -61,8 +61,8 @@ public class Truncation extends Selection {
     }
 
     private void flipChromosomes(int i, int j) {
-        Chromosome aux = this.population.get(i);
-        this.population.set(i, this.population.get(j));
+        Chromosome aux = this.population.get(i).copy();
+        this.population.set(i, this.population.get(j).copy());
         this.population.set(j, aux);
     }
 

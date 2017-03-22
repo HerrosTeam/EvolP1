@@ -5,6 +5,7 @@
  */
 package es.ucm.pev.g12p1.chromosome.gene;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ public abstract class Gene {
     protected List<Object> allele;
     protected int geneLength;
     public Gene(int geneLength) {
-        
+        this.allele = new LinkedList();
         this.geneLength = geneLength;
     }
 

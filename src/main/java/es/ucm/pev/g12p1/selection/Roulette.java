@@ -22,6 +22,7 @@ public class Roulette extends Selection {
     @Override
     public List<Chromosome> select(List<Chromosome> population) {
         List<Chromosome> newPopulation = new LinkedList();
+        List<Integer> sel_surv= new LinkedList();
         double probability;
         int survivorPos;
         Random randomNumber = new Random();
@@ -32,9 +33,13 @@ public class Roulette extends Selection {
                     && (survivorPos < population.size())) {
                 survivorPos++;
             }
-            newPopulation.add(i, population.get(survivorPos));
+            sel_surv.add(i, survivorPos);
         }
-
+        for (int i=0; i<population.size();i++) {
+             newPopulation.add(i, population.get(sel_surv.get(i)));
+             newPopulation.get(i).evaluate();
+        }
+       
         return newPopulation;
     }
 

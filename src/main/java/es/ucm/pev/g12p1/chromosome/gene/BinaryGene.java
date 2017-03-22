@@ -24,16 +24,16 @@ public class BinaryGene extends Gene{
     @Override
     public void initializeGene(Random randomNumber) {
         for(int i=0; i < this.getLength(); i++){
-            this.allele.add(randomNumber.nextInt(2)==1);
+            this.allele.add(randomNumber.nextBoolean());
         }
     }
     
     public long bin2Dec(int length){
         long result = 0;
-            for (int i=0; i< length; i++) {
-                boolean a = (boolean) this.allele.get(i);
-        	result = result * 2 + (a ? 1 : 0);
-        	}
+        for (int i=0; i< length; i++) {
+            boolean a = (boolean) this.allele.get(i);
+            result = result * 2 + (a ? 1 : 0);
+        }
         return result;
     }
 

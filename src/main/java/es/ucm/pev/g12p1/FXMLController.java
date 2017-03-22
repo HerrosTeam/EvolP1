@@ -131,7 +131,8 @@ public class FXMLController implements Initializable {
                 "Multipunto",
                 "Aritmético",
                 "SBX",
-                "Discreto Uniforme"
+                "Discreto Uniforme",
+                "Uniforme"
         );
         cboCruce.getSelectionModel().selectFirst();
 

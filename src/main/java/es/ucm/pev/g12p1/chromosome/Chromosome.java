@@ -46,11 +46,7 @@ public abstract class Chromosome {
     }
     
     public int getLength(){
-        int length = 0;
-        for(Gene g: genes){
-            length += g.getLength();
-        }
-        return length;
+        return this.chromosomeLength;
     }
     
     public double getFitness(){
@@ -65,6 +61,7 @@ public abstract class Chromosome {
         for(int i=0; i<this.genes.size(); i++){
             this.genes.get(i).initializeGene(randomNumber);
         }
+        this.evaluate();
     }
 
     public double getScoreAccumulated() {

@@ -22,25 +22,24 @@ public class Uniform extends Crossover {
     @Override
     public List<Chromosome> crossover(Chromosome parent1, Chromosome parent2, int crossPoint) {
         List<Chromosome> children = new LinkedList();
-        int randomNum;
-        Chromosome child1 = parent1;
-        Chromosome child2 = parent2;
 
-        //recorremos los alelos de los genes bit a bit
-        int currentGene = 0, sumGeneLengths = 0;
-        for (int i = 0; i < parent1.getLength(); i++) {
-            if (i >= parent1.getGene(currentGene).getLength() + sumGeneLengths) {
-                sumGeneLengths += parent1.getGene(currentGene).getLength();
-                currentGene++;
-            }
-            randomNum = ThreadLocalRandom.current().nextInt(0, 1);
-            if (randomNum == 1) {
-                child1.getGene(currentGene).setAllele(i - sumGeneLengths,
-                        parent2.getGene(currentGene).getAllele(i - sumGeneLengths));
-                child2.getGene(currentGene).setAllele(i - sumGeneLengths,
-                        parent1.getGene(currentGene).getAllele(i - sumGeneLengths));
+        Chromosome child1 = parent1.copy();
+        Chromosome child2 = parent2.copy();
+
+        for(int i=0; i<parent1.getGenes().size(); i++){
+            for(int j=0; j<parent1.getGene(i).getLength(); j++){
+                int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
+                if (randomNum == 1) {
+                    child1.getGene(i).setAllele(j,
+                        parent2.getGene(i).getAllele(j));
+                    child2.getGene(i).setAllele(j,
+                        parent1.getGene(i).getAllele(j));
+                }
             }
         }
+ 
+        child1.evaluate();
+        child2.evaluate();
         children.add(child1);
         children.add(child2);
 

@@ -8,6 +8,7 @@ package es.ucm.pev.g12p1.crossover;
 import es.ucm.pev.g12p1.chromosome.Chromosome;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -25,20 +26,23 @@ public class SinglePoint extends Crossover {
         Chromosome child1 = parent1.copy();
         Chromosome child2 = parent2.copy();
 
-        //remorremos los alelos de los genes bit a bit
-        int currentGene = 0, sumGeneLengths = 0;
-        for (int i = 0; i < parent1.getLength(); i++) {
-            if (i >= parent1.getGene(currentGene).getLength() + sumGeneLengths) {
-                sumGeneLengths += parent1.getGene(currentGene).getLength();
-                currentGene++;
+        int currentAllele = 0;
+
+        for(int i=0; i<parent1.getGenes().size(); i++){
+            for(int j=0; j<parent1.getGene(i).getLength(); j++){
+                if (currentAllele >= crossPoint) {
+                child1.getGene(i).setAllele(j,
+                        parent2.getGene(i).getAllele(j));
+                child2.getGene(i).setAllele(j,
+                        parent1.getGene(i).getAllele(j));
+                }
+                currentAllele++;
             }
-            if (i >= crossPoint) {
-                child1.getGene(currentGene).setAllele(i - sumGeneLengths,
-                        parent2.getGene(currentGene).getAllele(i - sumGeneLengths));
-                child2.getGene(currentGene).setAllele(i - sumGeneLengths,
-                        parent1.getGene(currentGene).getAllele(i - sumGeneLengths));
-            }
+
         }
+ 
+        child1.evaluate();
+        child2.evaluate();
         children.add(child1);
         children.add(child2);
 
