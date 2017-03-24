@@ -86,5 +86,9 @@ public abstract class Chromosome {
         return this.escalation;
     }
     
+    public double getAdaptation(){
+        return this.adaptation;
+    }
+    
     public abstract Chromosome copy();
 }

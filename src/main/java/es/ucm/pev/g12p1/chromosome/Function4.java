@@ -19,7 +19,7 @@ public class Function4 extends Chromosome{
     private int numGenes;
     public Function4(double tolerance) {
         super(0, Math.PI, tolerance);
-        numGenes = 7;
+        numGenes = 4;
         int geneLength = (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerance)/Math.log(2));
         this.chromosomeLength = numGenes * geneLength;
         this.fenotype = new LinkedList();
@@ -28,15 +28,15 @@ public class Function4 extends Chromosome{
         for(int i=0; i<numGenes; i++){
             this.genes.add(i, new BinaryGene(geneLength));
         }
-        } 
+    } 
     
     public double function(List<Double> x){
-        double suma=0;
+        double sum=0;
         for(int i=0; i<numGenes; i++){
-            suma+= Math.sin(x.get(i))*Math.pow(Math.sin((i+1)* 
-                    Math.pow(x.get(i), 2)) / Math.PI, 20);
+            sum+= Math.sin(x.get(i))*Math.pow(Math.sin(((i+1)+1)* 
+                    Math.pow(x.get(i), 2) / Math.PI) , 20);
         }
-      return suma * -1;
+      return sum * -1;
     }
     
     @Override
@@ -74,7 +74,6 @@ public class Function4 extends Chromosome{
         for(int i=0; i<this.numGenes; i++){
             c.genes.add(i, this.genes.get(i).copy());
         }
-        c.fenotype();
         c.evaluate();
         return c;
     }

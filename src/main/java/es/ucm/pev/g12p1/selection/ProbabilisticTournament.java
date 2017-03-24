@@ -23,22 +23,22 @@ public class ProbabilisticTournament extends Selection {
     public List<Chromosome> select(List<Chromosome> population) {
         List<Chromosome> newPopulation = new LinkedList();
 
-        double probability = ThreadLocalRandom.current().nextDouble(0, 1);
+        double probability = ThreadLocalRandom.current().nextDouble();
         for (int i = 0; i < population.size(); i++) {
             int positionOfSelected;
-            double bestFitness;
-            int randomPosition = ThreadLocalRandom.current().nextInt(0, population.size()-1);
+            double bestAdaptation;
+            int randomPosition = ThreadLocalRandom.current().nextInt(0, population.size());
             positionOfSelected = randomPosition;
-            bestFitness = population.get(randomPosition).getFitness();
+            bestAdaptation = population.get(randomPosition).getAdaptation();
 
-            randomPosition = ThreadLocalRandom.current().nextInt(0, population.size()-1);
+            randomPosition = ThreadLocalRandom.current().nextInt(0, population.size());
 
-            double randomProbability = ThreadLocalRandom.current().nextDouble(0, 1);
+            double randomProbability = ThreadLocalRandom.current().nextDouble();
             if (randomProbability > probability) {
-                if (bestFitness < population.get(randomPosition).getFitness()) {
+                if (bestAdaptation < population.get(randomPosition).getAdaptation()) {
                     positionOfSelected = randomPosition;
                 }
-            } else if (bestFitness > population.get(randomPosition).getFitness()) {
+            } else if (bestAdaptation > population.get(randomPosition).getAdaptation()) {
                 positionOfSelected = randomPosition;
             }
 

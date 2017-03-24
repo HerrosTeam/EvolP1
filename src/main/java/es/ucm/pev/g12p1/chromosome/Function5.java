@@ -32,7 +32,7 @@ public class Function5 extends Chromosome{
     public double function(List<Double> x){
         double sum1=0;
         double sum2=0;
-        for(int i=0; i<5; i++){
+        for(int i=1; i<=5; i++){
             sum1+= i*Math.cos((i+1)*x.get(0)+i);
             sum2+= i*Math.cos((i+1)*x.get(1)+i);
         }
@@ -74,7 +74,6 @@ public class Function5 extends Chromosome{
         c.genes = new LinkedList();
         c.genes.add(0, this.genes.get(0).copy());
         c.genes.add(1, this.genes.get(1).copy());
-        c.fenotype();
         c.evaluate();
         return c;
     }

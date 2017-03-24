@@ -37,7 +37,6 @@ public class Roulette extends Selection {
         }
         for (int i=0; i<population.size();i++) {
              newPopulation.add(i, population.get(sel_surv.get(i)));
-             newPopulation.get(i).evaluate();
         }
        
         return newPopulation;

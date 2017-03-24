@@ -25,13 +25,16 @@ public class DiscreteUniform extends Crossover {
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
         double Pi = 0.4;
-        for (int i = 0; i < parent1.getLength(); i++) {
-            double probability = ThreadLocalRandom.current().nextDouble(0, 1);
+        for (int i = 0; i < parent1.getGenes().size(); i++) {
+            double probability = ThreadLocalRandom.current().nextDouble();
             if (Pi > probability) {
                 child1.getGene(i).setAllele(0, parent2.getGene(i).getAllele(0));
                 child2.getGene(i).setAllele(0, parent1.getGene(i).getAllele(0));
             }
         }
+        
+        child1.evaluate();
+        child2.evaluate();
         children.add(child1);
         children.add(child2);
 

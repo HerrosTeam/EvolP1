@@ -17,22 +17,23 @@ public class Elite {
     
     private List<Chromosome> currentPopulation;
     private int eliteSize;
-    private List<Double> worstFitness;
-    
+    private boolean maximizar;
     public Elite(int eliteSize) {
         this.eliteSize = eliteSize;
-        this.worstFitness = new LinkedList();
     }
     
     public List<Chromosome> getElite(List<Chromosome> currentPopulation){
-        
-        this.currentPopulation = currentPopulation;
-        this.quickSort(0, this.currentPopulation.size()-1);
+        List<Chromosome> elite = new LinkedList();
+        this.currentPopulation=currentPopulation;
+        this.quickSort(0, this.currentPopulation.size()-1); //ordered from lowest to highest fitness
         for(int i=0; i<this.eliteSize; i++){
-            this.worstFitness.add(this.currentPopulation.get(currentPopulation.size()-i-1).getFitness());
+            if(maximizar){
+                elite.add(i, this.currentPopulation.get(this.currentPopulation.size()-1-i));
+            }else{
+                elite.add(i, this.currentPopulation.get(i));
+            }
         }
-        
-        return this.currentPopulation.subList(0,this.eliteSize);
+        return elite;
     }
     
     private void quickSort(int lo, int hi){
@@ -63,27 +64,22 @@ public class Elite {
         this.currentPopulation.set(i, this.currentPopulation.get(j));
         this.currentPopulation.set(j, aux);
     }
-
-    public List<Chromosome> includeEliteRandom(List<Chromosome> population, List<Chromosome> eliteChromosomes) {
-        for(int i=0; i<eliteChromosomes.size(); i++){
-            population.set(i, eliteChromosomes.get(i));
-        }
-        return population;
-    }
     
-    //replace worst
     public List<Chromosome> includeEliteRepWorst(List<Chromosome> population, List<Chromosome> eliteChromosomes) {
 
-        boolean end = false;
+        this.currentPopulation = population;
+        this.quickSort(0, this.currentPopulation.size()-1); //ordered from lowest to highest fitness
         for(int i=0; i<this.eliteSize; i++){
-            for(int j=0; j<population.size() && !end; j++){
-                if(population.get(j).getFitness()== this.worstFitness.get(i)){
-                    population.set(j, eliteChromosomes.get(i));
-                    end=true;
-                }
+            if(maximizar){
+                this.currentPopulation.set(i,eliteChromosomes.get(i));
+            }else{
+                this.currentPopulation.set(this.currentPopulation.size()-1-i, eliteChromosomes.get(i));
             }
-            end=false;
         }
-        return population;
+        return this.currentPopulation;
+    }
+    
+    public void initializeMax(boolean max){
+        this.maximizar = max;
     }
 }

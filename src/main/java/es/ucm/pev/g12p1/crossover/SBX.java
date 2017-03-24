@@ -25,7 +25,7 @@ public class SBX extends Crossover {
 
         Chromosome child1 = parent1;
         Chromosome child2 = parent2;
-        double alpha = ThreadLocalRandom.current().nextDouble(0, 1);
+        double alpha = ThreadLocalRandom.current().nextDouble();
         double beta;
         int n = 1;//recomended value = 1 || 2
         if(alpha<0.5){
@@ -34,7 +34,7 @@ public class SBX extends Crossover {
             beta = Math.pow(1/(2*(1-alpha)), 1/(n+1));
         }
         
-        for (int i = 0; i < parent1.getLength(); i++) {
+        for (int i = 0; i < parent1.getGenes().size(); i++) {
             double child1Gen = 0.5 * ( ((Double) parent1.getGene(i).getAllele(0) + (Double) parent2.getGene(i).getAllele(0)) 
                     - beta * (((Double) parent2.getGene(i).getAllele(0) - (Double) parent1.getGene(i).getAllele(0))));
             child2.getGene(i).setAllele(0, child1Gen);
@@ -42,6 +42,8 @@ public class SBX extends Crossover {
                     + beta * (((Double) parent2.getGene(i).getAllele(0) - (Double) parent1.getGene(i).getAllele(0))));
             child2.getGene(i).setAllele(0, child2Gen);
         }
+        child1.evaluate();
+        child2.evaluate();
         children.add(child1);
         children.add(child2);
 

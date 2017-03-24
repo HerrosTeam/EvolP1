@@ -19,10 +19,8 @@ import es.ucm.pev.g12p1.mutation.Mutation;
 import es.ucm.pev.g12p1.selection.Selection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  *
@@ -83,7 +81,7 @@ public class AG {
         this.graphPoints = new double[4][maxGenerations];
         this.elitism = elitism;
         if (elitism) {
-            this.elitismPopulation = (int) Math.ceil(this.populationSize / 100.0);
+            this.elitismPopulation = (int) Math.ceil(this.populationSize*0.02);
             this.elite = new Elite(this.elitismPopulation);
         }
         this.evolutionaryPressure = 1.5;
@@ -94,12 +92,10 @@ public class AG {
     public void executeAlgorithm() {
         this.initialize();
         this.evaluate();
-        
         //this.observer.update(this, this);
         while (currentGeneration != maxGenerations) {
             if (elitism) {
-                this.eliteChromosomes.clear();
-                this.eliteChromosomes.addAll(this.elite.getElite(population));
+                this.eliteChromosomes.addAll(0, this.elite.getElite(population));
             }
             
             this.selection();
@@ -139,6 +135,9 @@ public class AG {
             c.inicializeChromosome(this.randomNumber);
             c.evaluate();
             population.add(c);
+        }
+        if (elitism) {
+            this.elite.initializeMax(this.maximizar);
         }
     }
     

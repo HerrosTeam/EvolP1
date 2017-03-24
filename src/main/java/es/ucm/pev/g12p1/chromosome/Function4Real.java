@@ -5,7 +5,6 @@
  */
 package es.ucm.pev.g12p1.chromosome;
 
-import es.ucm.pev.g12p1.chromosome.gene.BinaryGene;
 import es.ucm.pev.g12p1.chromosome.gene.Gene;
 import es.ucm.pev.g12p1.chromosome.gene.RealGene;
 import java.util.LinkedList;
@@ -20,7 +19,7 @@ public class Function4Real extends Chromosome{
     private int numGenes;
     public Function4Real(double tolerance) {
         super(0, Math.PI, tolerance);
-        numGenes = 6;
+        numGenes = 4;
         int geneLength = 1;
         this.chromosomeLength = numGenes*geneLength;
         this.fenotype = new LinkedList();
@@ -34,8 +33,8 @@ public class Function4Real extends Chromosome{
     public double function(List<Double> x){
         double sum=0;
         for(int i=0; i<numGenes; i++){
-            sum+= Math.sin(x.get(i))*Math.pow(Math.sin((i+1)* 
-                    Math.pow(x.get(i), 2)) / Math.PI, 20);
+            sum+= Math.sin(x.get(i))*Math.pow(Math.sin(((i+1)+1)* 
+                    Math.pow(x.get(i), 2) / Math.PI) , 20);
         }
       return sum * -1;
     }

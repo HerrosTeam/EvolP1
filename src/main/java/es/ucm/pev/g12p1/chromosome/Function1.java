@@ -55,7 +55,6 @@ public class Function1 extends Chromosome{
         Chromosome c=new Function1(this.tolerance);	
         c.genes = new LinkedList();
         c.genes.add(0, this.genes.get(0).copy());
-        c.fenotype();
         c.evaluate();
         return c;
     }

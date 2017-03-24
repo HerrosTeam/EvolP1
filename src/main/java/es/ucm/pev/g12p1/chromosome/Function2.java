@@ -68,7 +68,6 @@ public class Function2 extends Chromosome{
         c.genes = new LinkedList();
         c.genes.add(0, this.genes.get(0).copy());
         c.genes.add(1, this.genes.get(1).copy());
-        c.fenotype();
         c.evaluate();
         return c;
     }
