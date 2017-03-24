@@ -13,25 +13,25 @@ import java.util.List;
  */
 public class AGView {
 
-    List<Double> generationAverage;
-    List<Double> generationBest;
-    List<Double> absoluteBest;
+    double[] generationAverage;
+    double[] generationBest;
+    double[] absoluteBest;
 
-    public AGView(List<Double> generationAverage, List<Double> generationBest, List<Double> absoluteBest) {
+    public AGView(double[] generationAverage, double[] generationBest, double[] absoluteBest) {
         this.generationAverage = generationAverage;
         this.generationBest = generationBest;
         this.absoluteBest = absoluteBest;
     }
 
-    public List<Double> getGenerationAverage() {
+    public double[] getGenerationAverage() {
         return generationAverage;
     }
 
-    public List<Double> getGenerationBest() {
+    public double[] getGenerationBest() {
         return generationBest;
     }
 
-    public List<Double> getAbsoluteBest() {
+    public double[] getAbsoluteBest() {
         return absoluteBest;
     }
 }

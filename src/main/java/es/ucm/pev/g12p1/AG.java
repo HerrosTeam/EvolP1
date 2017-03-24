@@ -60,13 +60,17 @@ public class AG {
     private double average;
 
     private double evolutionaryPressure;
-    
+    private int nf4;
     private FXMLController controller;
     private double[][] graphPoints;
     
+    private double[] generationAverage;
+    private double[] generationBest;
+    private double[] absoluteBest;
+    
     public AG(String function, int populationSize, int max_generations,
             double prob_cross, double prob_mut, double tolerance, int seed, Selection selection, Crossover crossover,
-            boolean elitism, FXMLController controller) {
+            boolean elitism, int nF4) {
         this.currentGeneration = 0;
         this.function = function;
         this.populationSize = populationSize;
@@ -85,14 +89,16 @@ public class AG {
             this.elite = new Elite(this.elitismPopulation);
         }
         this.evolutionaryPressure = 1.5;
-        this.controller = controller;
+        this.nf4 = nF4;
         this.eliteChromosomes = new LinkedList<>();
+        this.generationAverage = new double[maxGenerations];
+        this.generationBest = new double[maxGenerations];
+        this.absoluteBest = new double[maxGenerations];
     }
 
-    public void executeAlgorithm() {
+    public AGView executeAlgorithm() {
         this.initialize();
         this.evaluate();
-        //this.observer.update(this, this);
         while (currentGeneration != maxGenerations) {
             if (elitism) {
                 this.eliteChromosomes.addAll(0, this.elite.getElite(population));
@@ -112,15 +118,16 @@ public class AG {
 
             this.evaluate();
 
-            this.graphPoints[0][this.currentGeneration]=getGeneration();
-            this.graphPoints[1][this.currentGeneration]=getAbsoluteBest();
-            this.graphPoints[2][this.currentGeneration]=getGenerationBest();
-            this.graphPoints[3][this.currentGeneration]=getGenerationAvg();
-            
-            controller.generateGraph(graphPoints);
+            this.generationAverage[this.currentGeneration] = getGenerationAvg();
+            this.generationBest[this.currentGeneration] = getGenerationBest();
+            this.absoluteBest[this.currentGeneration] = getAbsoluteBest();
             
             currentGeneration++;
         }
+        
+        AGView viewInfo = new AGView(this.generationAverage, this.generationBest, this.absoluteBest);
+        
+        return viewInfo;
     }
     
     
@@ -272,10 +279,10 @@ public class AG {
                 return new Function3(this.tolerance);
             case "Función 4":
                 this.maximizar = false;
-                return new Function4(this.tolerance);
+                return new Function4(this.tolerance, this.nf4);
             case "Función 4 reales":
                 this.maximizar = false;
-                return new Function4Real(this.tolerance);
+                return new Function4Real(this.tolerance, this.nf4);
             case "Función 5":
                 this.maximizar = false;
                 return new Function5(this.tolerance);

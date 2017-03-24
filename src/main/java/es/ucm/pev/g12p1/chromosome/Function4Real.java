@@ -17,9 +17,10 @@ import java.util.List;
 public class Function4Real extends Chromosome{
 
     private int numGenes;
-    public Function4Real(double tolerance) {
+
+    public Function4Real(double tolerance, int numGenes) {
         super(0, Math.PI, tolerance);
-        numGenes = 4;
+        this.numGenes = numGenes;
         int geneLength = 1;
         this.chromosomeLength = numGenes*geneLength;
         this.fenotype = new LinkedList();
@@ -66,7 +67,7 @@ public class Function4Real extends Chromosome{
 
     @Override
        public Chromosome copy() {
-        Chromosome c=new Function4Real(this.tolerance);	
+        Chromosome c=new Function4Real(this.tolerance, this.numGenes);	
         c.genes = new LinkedList();
         for(int i=0; i<this.numGenes; i++){
             c.genes.add(i, this.genes.get(i).copy());

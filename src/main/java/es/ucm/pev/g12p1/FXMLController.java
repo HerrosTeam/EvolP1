@@ -6,6 +6,7 @@ import es.ucm.pev.g12p1.selection.Selection;
 import es.ucm.pev.g12p1.selection.SelectionFactory;
 import java.awt.Dimension;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -46,6 +47,11 @@ public class FXMLController implements Initializable {
     private TextField txtSeleccion1;
     @FXML
     private TextField txtSeleccion2;
+
+    @FXML
+    private Label lblMejorAbs;
+    @FXML
+    private TextField txtMejorAbs;
 
     @FXML
     private ComboBox cboFuncion;
@@ -91,7 +97,7 @@ public class FXMLController implements Initializable {
         Selection selection = SelectionFactory.getSelectionAlgorithm(cboSeleccion.getSelectionModel().getSelectedItem().toString());
         Crossover crossover = CrossoverFactory.getCrossoverAlgorithm(cboCruce.getSelectionModel().getSelectedItem().toString());
         boolean elitism = chbElitism.isSelected();
-        int nF4 = 0;
+        int nF4 = 4;
         if (!txtN.getText().isEmpty()) {
             nF4 = Integer.parseInt(txtN.getText());
         }
@@ -101,7 +107,7 @@ public class FXMLController implements Initializable {
 
         AGView viewInfo = newAG.executeAlgorithm();
 
-        
+        /*
         Tab tab = new Tab();
         tab.setText("AG " + count);
 
@@ -132,7 +138,7 @@ public class FXMLController implements Initializable {
         tab.setContent(lineChart);
         tabPane.getTabs().add(tab);
         count++;
-        /*
+         */
         Tab tab = new Tab();
         tab.setText("AG " + count);
 
@@ -144,28 +150,27 @@ public class FXMLController implements Initializable {
         graphPanel.add(plot);
         swingNode.setContent(graphPanel);
 
-        List<Double> absoluteBest = viewInfo.getAbsoluteBest();
-        double[] absBest = absoluteBest.stream().mapToDouble(d -> d).toArray();
-        List<Double> generationBest = viewInfo.getAbsoluteBest();
-        double[] genBest = generationBest.stream().mapToDouble(d -> d).toArray();
-        List<Double> generationAvg = viewInfo.getAbsoluteBest();
-        double[] genAvg = generationAvg.stream().mapToDouble(d -> d).toArray();
-        double[] numbers = new double[100];
-        for(int i=0; i< 100; i++){
+        double[] absBest = viewInfo.getAbsoluteBest();
+        double[] genBest = viewInfo.getGenerationBest();
+        double[] genAvg = viewInfo.getGenerationAverage();
+        double[] numbers = new double[max_generations];
+
+        for (int i = 0; i < max_generations; i++) {
             numbers[i] = i;
         }
-      
+
         plot.removeAllPlots();
-        plot.addLinePlot("Mejor absoluto",numbers, absBest);
-        plot.addLinePlot("Mejor de la generación",numbers, genBest);
+        plot.addLinePlot("Mejor absoluto", numbers, absBest);
+        plot.addLinePlot("Mejor de la generación", numbers, genBest);
         plot.addLinePlot("Media de la generación", numbers, genAvg);
 
         Pane pane = new Pane();
         pane.getChildren().add(swingNode);
-
+        DecimalFormat decim = new DecimalFormat("0.00000");
+        txtMejorAbs.setText(decim.format(absBest[max_generations - 1]));
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
-        count++;*/
+        count++;
     }
 
     @Override
@@ -211,21 +216,21 @@ public class FXMLController implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Mejor absoluto");
-        List<Double> absoluteBest = viewInfo.getAbsoluteBest();
+        //List<Double> absoluteBest = viewInfo.getAbsoluteBest();
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Mejor de la generación");
-        List<Double> generationBest = viewInfo.getGenerationBest();
+        //List<Double> generationBest = viewInfo.getGenerationBest();
 
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("Media de la generación");
-        List<Double> generationAvg = viewInfo.getGenerationAverage();
-
+        //List<Double> generationAvg = viewInfo.getGenerationAverage();
+        /*
         for (int i = 0; i < absoluteBest.size(); i++) {
             series1.getData().add(new XYChart.Data(i, absoluteBest.get(i)));
             series2.getData().add(new XYChart.Data(i, generationBest.get(i)));
             series3.getData().add(new XYChart.Data(i, generationAvg.get(i)));
-        }
+        }*/
 
         data.add(series3);
         data.add(series2);
