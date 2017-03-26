@@ -36,33 +36,28 @@ public class Elite {
         return elite;
     }
     
-    private void quickSort(int lo, int hi){
-        int i = lo, j = hi;
-        double p = this.currentPopulation.get(lo+(hi-lo)/2).getFitness();
-        while(i<=j){
-            while(this.currentPopulation.get(i).getFitness() < p){
-                i++;
-            }
-            while(this.currentPopulation.get(j).getFitness() > p){
-                j--;
-            }
-            if(i<=j){
-                flipChromosomes(i, j);
-                i++;
-                j--;
-            }
-        }
-        if(lo<j)
-            quickSort(lo, j);
-        if(i>hi){
-            quickSort(i, hi);
-        }
-    }
- 
-    private void flipChromosomes(int i, int j){
-        Chromosome aux = this.currentPopulation.get(i);
-        this.currentPopulation.set(i, this.currentPopulation.get(j));
-        this.currentPopulation.set(j, aux);
+    public void quickSort(int izq, int der) {
+
+      Chromosome pivote=currentPopulation.get(izq).copy(); // tomamos primer elemento como pivote
+      int i=izq; // i realiza la búsqueda de izquierda a derecha
+      int j=der; // j realiza la búsqueda de derecha a izquierda
+      Chromosome aux;
+
+      while(i<j){            // mientras no se crucen las búsquedas
+         while(currentPopulation.get(i).getFitness()<=pivote.getFitness() && i<j) i++; // busca elemento mayor que pivote
+         while(currentPopulation.get(j).getFitness()>pivote.getFitness()) j--;         // busca elemento menor que pivote
+         if (i<j) {                      // si no se han cruzado                      
+             aux= currentPopulation.get(i).copy();                  // los intercambia
+             currentPopulation.set(i, currentPopulation.get(j).copy());
+             currentPopulation.set(j,aux.copy());
+         }
+       }
+       currentPopulation.set(izq, currentPopulation.get(j).copy());
+       currentPopulation.set(j,pivote.copy());
+       if(izq<j-1)
+          quickSort(izq,j-1); // ordenamos subarray izquierdo
+       if(j+1 <der)
+          quickSort(j+1,der); // ordenamos subarray derecho
     }
     
     public List<Chromosome> includeEliteRepWorst(List<Chromosome> population, List<Chromosome> eliteChromosomes) {

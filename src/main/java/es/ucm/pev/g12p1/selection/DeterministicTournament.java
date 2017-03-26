@@ -36,7 +36,7 @@ public class DeterministicTournament extends Selection {
                 positionOfBest = random;
             }
 
-            newPopulation.add(i, population.get(positionOfBest));
+            newPopulation.add(i, population.get(positionOfBest).copy());
         }
         return newPopulation;
     }

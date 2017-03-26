@@ -42,7 +42,7 @@ public class ProbabilisticTournament extends Selection {
                 positionOfSelected = randomPosition;
             }
 
-            newPopulation.add(population.get(positionOfSelected));
+            newPopulation.add(population.get(positionOfSelected).copy());
         }
         return newPopulation;
     }
