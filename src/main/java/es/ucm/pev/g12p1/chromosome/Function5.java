@@ -75,6 +75,10 @@ public class Function5 extends Chromosome{
         c.genes.add(0, this.genes.get(0).copy());
         c.genes.add(1, this.genes.get(1).copy());
         c.evaluate();
+         c.setScore(this.score);
+        c.setAccumulatedScore(this.scoreAccumulated);
+        c.setEscalation(this.escalation);
+        c.setAdaptation(this.adaptation);
         return c;
     }
   

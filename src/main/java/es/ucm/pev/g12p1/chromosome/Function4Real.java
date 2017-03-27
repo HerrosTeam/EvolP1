@@ -72,8 +72,11 @@ public class Function4Real extends Chromosome{
         for(int i=0; i<this.numGenes; i++){
             c.genes.add(i, this.genes.get(i).copy());
         }
-        c.fenotype();
         c.evaluate();
+         c.setScore(this.score);
+        c.setAccumulatedScore(this.scoreAccumulated);
+        c.setEscalation(this.escalation);
+        c.setAdaptation(this.adaptation);
         return c;
     }
 

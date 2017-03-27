@@ -28,7 +28,7 @@ public class StochasticUniversal extends Selection {
         for (Chromosome c : population) {
             survivorPos = 0;
             while (probability > population.get(survivorPos).getScoreAccumulated()
-                    && (survivorPos < population.size())) {
+                    && (survivorPos < population.size()-1)) {
                 survivorPos++;
             }
             newPopulation.add(population.get(survivorPos));

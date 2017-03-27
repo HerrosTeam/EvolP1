@@ -51,10 +51,19 @@ public class Function1 extends Chromosome{
     }
 
     @Override
+    public void setAdaptation(double adaptation) {
+        this.adaptation = adaptation;
+    }
+    
+    @Override
     public Chromosome copy() {
         Chromosome c=new Function1(this.tolerance);	
         c.genes = new LinkedList();
         c.genes.add(0, this.genes.get(0).copy());
+        c.setScore(this.score);
+        c.setAccumulatedScore(this.scoreAccumulated);
+        c.setEscalation(this.escalation);
+        c.setAdaptation(this.adaptation);
         c.evaluate();
         return c;
     }

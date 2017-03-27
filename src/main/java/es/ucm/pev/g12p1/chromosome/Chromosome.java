@@ -89,6 +89,10 @@ public abstract class Chromosome {
     public double getAdaptation(){
         return this.adaptation;
     }
+
+    public void setAdaptation(double adaptation) {
+        this.adaptation = adaptation;
+    }
     
     public abstract Chromosome copy();
 }

@@ -18,6 +18,7 @@ public class Elite {
     private List<Chromosome> currentPopulation;
     private int eliteSize;
     private boolean maximizar;
+    
     public Elite(int eliteSize) {
         this.eliteSize = eliteSize;
     }

@@ -30,7 +30,7 @@ public class Roulette extends Selection {
             probability = randomNumber.nextDouble();
             survivorPos = 0;
             while (probability > population.get(survivorPos).getScoreAccumulated()
-                    && (survivorPos < population.size())) {
+                    && (survivorPos < (population.size() -1 )) ){
                 survivorPos++;
             }
             sel_surv.add(i, survivorPos);

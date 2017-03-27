@@ -87,6 +87,8 @@ public class FXMLController implements Initializable {
     @FXML
     private void onCrearAGButton(ActionEvent event) {
 
+        txtMejorAbs.setText("");
+                
         String function = cboFuncion.getSelectionModel().getSelectedItem().toString();
         int populationSize = Integer.parseInt(txtPoblacion.getText());
         int max_generations = Integer.parseInt(txtIteraciones.getText());
